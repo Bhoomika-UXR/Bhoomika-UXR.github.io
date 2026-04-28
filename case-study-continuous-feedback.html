@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Continuous Builder Feedback & Design System Strategy | Bhoomika | UX Research</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#0d0e10",
+                        "on-surface": "#e3e2e5",
+                        "primary-container": "#acc7fb",
+                        "primary": "#d6e2ff",
+                        "surface-container-high": "#292a2c",
+                        "outline": "#8e909a",
+                        "surface-container-low": "#1b1c1e",
+                        "on-surface-variant": "#c4c6d0",
+                        "outline-variant": "#43474f",
+                        "surface-container": "#1f2022",
+                        "surface": "#121315",
+                        "background": "#121315",
+                        "on-background": "#e3e2e5",
+                        "surface-container-highest": "#343537",
+                    },
+                    fontFamily: { "headline": ["Manrope"], "body": ["Inter"], "label": ["Inter"] }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --accent: #acc7fb; --accent-dim: rgba(172,199,251,0.12); --accent-border: rgba(172,199,251,0.2);
+            --surface: #121315; --surface-high: #1f2022; --surface-higher: #292a2c;
+            --text-primary: #e3e2e5; --text-muted: #c4c6d0; --text-dim: #8e909a;
+        }
+        * { box-sizing: border-box; }
+        body { background-color: var(--surface); color: var(--text-primary); font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .editorial-gradient { background: linear-gradient(135deg, #acc7fb 0%, #e2e0f9 100%); }
+        .ghost-border { outline: 1px solid rgba(142,144,154,0.1); }
+        .process-step { position: relative; }
+        .process-step:not(:last-child)::after { content: ''; position: absolute; left: 19px; top: 44px; bottom: -24px; width: 1px; background: linear-gradient(to bottom, var(--accent-border), transparent); }
+        .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(172,199,251,0.25); } 70% { box-shadow: 0 0 0 12px rgba(172,199,251,0); } 100% { box-shadow: 0 0 0 0 rgba(172,199,251,0); } }
+        .metric-pulse { animation: pulse-ring 3s ease-out infinite; }
+        .tag-continuous { background: rgba(172,199,251,0.12); color: #acc7fb; border: 1px solid rgba(172,199,251,0.2); }
+        .tag-survey { background: rgba(226,224,249,0.12); color: #e2e0f9; border: 1px solid rgba(226,224,249,0.2); }
+        .tag-strategy { background: rgba(198,196,220,0.12); color: #c6c4dc; border: 1px solid rgba(198,196,220,0.2); }
+        .tag-secondary { background: rgba(197,198,205,0.08); color: #9c9da4; border: 1px solid rgba(197,198,205,0.12); }
+        .section-divider { border: none; border-top: 1px solid rgba(142,144,154,0.1); }
+    </style>
+</head>
+<body>
+
+<nav class="fixed top-0 w-full z-50 bg-[#0d0e10]/60 backdrop-blur-[20px] border-b border-white/10">
+    <div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+        <a href="index.html" class="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm font-medium">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>Back to Portfolio
+        </a>
+        <div class="text-base font-extrabold tracking-tighter text-white font-['Manrope'] uppercase">BHOOMIKA <span style="color:var(--accent)">| UXR</span></div>
+        <a href="mailto:bhoomika17@gmail.com" class="editorial-gradient text-[#001b3e] font-bold py-2.5 px-6 rounded-xl text-sm transition-transform active:scale-95">Get in Touch</a>
+    </div>
+</nav>
+
+<main class="pt-28">
+
+    <header class="max-w-7xl mx-auto px-8 pt-12 pb-20">
+        <div class="mb-6 flex flex-wrap items-center gap-3">
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-continuous">Continuous Research</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-survey">Survey & Statistical Analysis</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-strategy">Design System Strategy</span>
+        </div>
+        <h1 class="font-['Manrope'] font-extrabold text-[2.8rem] md:text-[4.5rem] leading-[1.0] tracking-[-0.03em] text-white mb-8 max-w-5xl">
+            Measured Over Time, Not Just Once: <span style="color:var(--accent)">Continuous Builder Feedback Driving Design System Strategy</span>
+        </h1>
+        <p class="text-[var(--text-muted)] text-xl leading-relaxed max-w-3xl mb-12">
+            Led a continuous feedback program combining biannual satisfaction surveys and facilitated listening sessions to surface systemic friction, track the impact of recommendations over time, and inform strategic priorities across a large enterprise design system.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color:var(--accent)">Role</p>
+                <p class="text-sm font-semibold text-white">UX Research Lead</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color:var(--accent)">Scope</p>
+                <p class="text-sm font-semibold text-white">Ongoing - biannual cycles</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color:var(--accent)">Scale</p>
+                <p class="text-sm font-semibold text-white">~300 responses per survey cycle</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color:var(--accent)">Methods</p>
+                <p class="text-sm font-semibold text-white">CSAT surveys - Thematic analysis - Facilitated sessions - Stakeholder workshops</p>
+            </div>
+        </div>
+    </header>
+
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="metric-pulse bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color:var(--accent)">1,500+</p>
+                <p class="font-semibold text-white text-lg mb-2">Content Visits Driven by Research</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">A transparency initiative directly recommended from research findings reached 1,500+ visits with a 19% month-over-month increase - improving builder visibility into design system decision-making.</p>
+            </div>
+            <div class="bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color:var(--accent)">6pp</p>
+                <p class="font-semibold text-white text-lg mb-2">Decrease in Builders Feeling Uninformed</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">A baseline metric proactively added to the Q3 2023 survey tracked communication improvements over time - showing a 6 percentage point decrease in builders feeling uninformed by Q1 2024.</p>
+            </div>
+            <div class="bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color:var(--accent)">4</p>
+                <p class="font-semibold text-white text-lg mb-2">Organizational Initiatives Launched</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Research findings directly initiated four cross-functional organizational initiatives spanning content consistency, documentation usability, transparency practices, and contribution pathways.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color:var(--accent)">Background</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Context & Problem Space</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">As adoption of a large enterprise design system expanded across the platform, understanding builder needs at scale became essential. Systemic friction points were going undetected between research cycles, and there was no structured mechanism to track whether recommendations were working once implemented.</p>
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">I led a continuous feedback initiative combining biannual CSAT surveys with facilitated listening sessions - creating a research program designed not just to surface insights, but to measure their impact over time.</p>
+                <div class="bg-[var(--surface-higher)] rounded-xl p-6 border-l-4 mt-6" style="border-color:var(--accent)">
+                    <p class="text-sm font-bold text-white mb-3">The program needed to answer three questions continuously:</p>
+                    <ul class="space-y-2 text-[var(--text-muted)] text-sm">
+                        <li class="flex gap-2"><span style="color:var(--accent)">-</span>What friction are builder teams experiencing right now?</li>
+                        <li class="flex gap-2"><span style="color:var(--accent)">-</span>Are the improvements we made based on previous research actually working?</li>
+                        <li class="flex gap-2"><span style="color:var(--accent)">-</span>What should the design system prioritize next?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color:var(--accent)">Process</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Research Approach</h2>
+                <p class="text-[var(--text-muted)] text-sm mt-4 leading-relaxed">A continuous program combining large-scale feedback collection with facilitated deep-dive sessions - designed to surface trends while preserving contextual depth.</p>
+            </div>
+            <div class="md:col-span-8">
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)">01</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Survey Redesign & Statistical Analysis</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-survey font-semibold">~300 responses per cycle</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">Redesigned biannual CSAT surveys to improve clarity, accessibility, and relevance. Applied statistical analysis to identify trends across cycles and proactively added baseline metrics to track the downstream impact of specific recommendations over time.</p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Key design decision</span>
+                            Added a new metric in Q3 2023 specifically to baseline builder awareness of releases - enabling a before/after comparison once communication improvements were implemented
+                        </div>
+                    </div>
+                </div>
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)">02</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Thematic Analysis of Open-Text Feedback</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-continuous font-semibold">Cross-cycle synthesis</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">Conducted thematic analysis of open-text responses across survey cycles to surface recurring patterns that quantitative scores alone would not reveal - identifying specific friction points including content consistency gaps, documentation usability issues, and contribution process ambiguity.</p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Example finding</span>
+                            Only 61% of respondents were aware of the exact contributions process - directly validating and accelerating a major contributions revamp
+                        </div>
+                    </div>
+                </div>
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)">03</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Facilitated Listening Sessions</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-strategy font-semibold">Service team depth</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">Facilitated listening sessions with major service teams structured around pre-collected discussion topics - surfacing workflow challenges, decision-making friction, and collaboration needs that surveys could not fully capture.</p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Key contribution</span>
+                            Action tracking sessions with squad leads led directly to the inception of multiple organizational initiatives and goals
+                        </div>
+                    </div>
+                </div>
+                <div class="process-step flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)">04</div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Cross-Functional Workshops & Stakeholder Readouts</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-survey font-semibold">Strategic alignment</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">Organized cross-functional workshops and readouts to translate findings into prioritized improvements - aligning stakeholders on priorities and enabling teams to take ownership of specific recommendations.</p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Output</span>
+                            Findings shaped organizational priorities adopted across outreach, engineering, product, and design functional teams
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-10">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color:var(--accent)">Research Impact</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">From Insight to Organizational Initiative</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">Four research findings that directly launched organizational initiatives - each tracked over time to measure whether the recommendation worked.</p>
+        </div>
+        <div class="rounded-2xl border border-white/5 overflow-hidden" style="background:var(--surface-high)">
+            <svg width="100%" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg">
+                <defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#acc7fb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+                <text x="200" y="38" text-anchor="middle" font-family="Inter" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">INSIGHT</text>
+                <text x="480" y="38" text-anchor="middle" font-family="Inter" font-size="10" font-weight="700" fill="#8e909a" letter-spacing="2">MECHANISM</text>
+                <text x="760" y="38" text-anchor="middle" font-family="Inter" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">INITIATIVE</text>
+                <line x1="40" y1="50" x2="920" y2="50" stroke="#43474f" stroke-width="0.5"/>
+
+                <rect x="40" y="68" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/><rect x="40" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="58" y="88" font-family="Inter" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">01 - TRANSPARENCY</text>
+                <text x="58" y="106" font-family="Manrope" font-size="13" font-weight="700" fill="#e3e2e5">Builders Lacked Visibility Into Decisions</text>
+                <text x="58" y="122" font-family="Inter" font-size="11" fill="#c4c6d0">Needed rationale behind guidance to align</text>
+                <text x="58" y="136" font-family="Inter" font-size="11" fill="#c4c6d0">stakeholders and reduce pushback</text>
+                <line x1="342" y1="106" x2="390" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="82" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="102" text-anchor="middle" font-family="Inter" font-size="10" fill="#8e909a">Open-text thematic</text>
+                <text x="479" y="118" text-anchor="middle" font-family="Inter" font-size="10" fill="#8e909a">analysis + workshops</text>
+                <line x1="567" y1="106" x2="615" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="618" y="68" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/><rect x="916" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="632" y="88" font-family="Inter" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">INITIATIVE LAUNCHED</text>
+                <text x="632" y="106" font-family="Manrope" font-size="13" font-weight="700" fill="#e3e2e5">Research visibility program</text>
+                <text x="632" y="122" font-family="Inter" font-size="11" fill="#c4c6d0">Taken as 2024 org goal;</text>
+                <text x="632" y="136" font-family="Inter" font-size="11" fill="#c4c6d0">1,500+ visits, +19% MoM</text>
+
+                <rect x="40" y="174" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/><rect x="40" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="58" y="194" font-family="Inter" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">02 - UPDATES AWARENESS</text>
+                <text x="58" y="212" font-family="Manrope" font-size="13" font-weight="700" fill="#e3e2e5">Builders Struggled to Stay Informed</text>
+                <text x="58" y="228" font-family="Inter" font-size="11" fill="#c4c6d0">Difficulty staying current with releases</text>
+                <text x="58" y="242" font-family="Inter" font-size="11" fill="#c4c6d0">affected alignment and planning</text>
+                <line x1="342" y1="212" x2="390" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="188" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="208" text-anchor="middle" font-family="Inter" font-size="10" fill="#8e909a">Baseline metric added</text>
+                <text x="479" y="224" text-anchor="middle" font-family="Inter" font-size="10" fill="#8e909a">Q3 2023 - tracked over time</text>
+                <line x1="567" y1="212" x2="615" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="618" y="174" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/><rect x="916" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="632" y="194" font-family="Inter" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">INITIATIVE LAUNCHED</text>
+                <text x="632" y="212" font-family="Manrope" font-size="13" font-weight="700" fill="#e3e2e5">Releases and Roadmap Sessions</text>
+                <text x="632" y="228" font-family="Inter" font-size="11" fill="#c4c6d0">60+ attendees at first session;</text>
+                <text x="632" y="242" font-family="Inter" font-size="11" fill="#c4c6d0">6pp decrease in builders feeling uninformed</text>
+
+                <rect x="40" y="280" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/><rect x="40" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="58" y="300" font-family="Inter" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">03 - CONTRIBUTION AWARENESS</text>
+                <text x="58" y="318" font-family="Manrope" font-size="13" font-weight="700" fill="#e3e2e5">Contribution Process Was Unclear</text>
+                <text x="58" y="334" font-family="Inter" font-size="11" fill="#c4c6d0">Only 61% of respondents aware of</text>
+                <text x="58" y="348" font-family="Inter" font-size="11" fill="#c4c6d0">the exact contributions process</text>
+                <line x1="342" y1="318" x2="390" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="294" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="314" text-anchor="middle" font-family="Inter" font-size="10" fill="#8e909a">Survey thematic analysis</text>
+                <text x="479" y="330" text-anchor="middle" font-family="Inter" font-size="10" fill="#8e909a">+ listening sessions</text>
+                <line x1="567" y1="318" x2="615" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="618" y="280" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/><rect x="916" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="632" y="300" font-family="Inter" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">INITIATIVE LAUNCHED</text>
+                <text x="632" y="318" font-family="Manrope" font-size="13" font-weight="700" fill="#e3e2e5">Contributions process revamp</text>
+                <text x="632" y="334" font-family="Inter" font-size="11" fill="#c4c6d0">New article published clarifying effort</text>
+                <text x="632" y="348" font-family="Inter" font-size="11" fill="#c4c6d0">expectations and process steps</text>
+
+                <rect x="40" y="386" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/><rect x="40" y="386" width="4" height="76" rx="2" fill="#9c9da4"/>
+                <text x="58" y="406" font-family="Inter" font-size="9" font-weight="700" fill="#9c9da4" letter-spacing="1.5">04 - DOCUMENTATION</text>
+                <text x="58" y="424" font-family="Manrope" font-size="13" font-weight="700" fill="#e3e2e5">Documentation Usability Drove Friction</text>
+                <text x="58" y="440" font-family="Inter" font-size="11" fill="#c4c6d0">Builders needed clearer structure and</text>
+                <text x="58" y="454" font-family="Inter" font-size="11" fill="#c4c6d0">practical examples to implement confidently</text>
+                <line x1="342" y1="424" x2="390" y2="424" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="400" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="420" text-anchor="middle" font-family="Inter" font-size="10" fill="#8e909a">Open-text analysis</text>
+                <text x="479" y="436" text-anchor="middle" font-family="Inter" font-size="10" fill="#8e909a">+ action tracking sessions</text>
+                <line x1="567" y1="424" x2="615" y2="424" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="618" y="386" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/><rect x="916" y="386" width="4" height="76" rx="2" fill="#9c9da4"/>
+                <text x="632" y="406" font-family="Inter" font-size="9" font-weight="700" fill="#9c9da4" letter-spacing="1.5">INITIATIVE LAUNCHED</text>
+                <text x="632" y="424" font-family="Manrope" font-size="13" font-weight="700" fill="#e3e2e5">Documentation navigation revamp</text>
+                <text x="632" y="440" font-family="Inter" font-size="11" fill="#c4c6d0">Navigation and real-world examples</text>
+                <text x="632" y="454" font-family="Inter" font-size="11" fill="#c4c6d0">prioritized for improvement</text>
+
+                <rect x="40" y="490" width="880" height="20" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.12)" stroke-width="1"/>
+                <text x="480" y="504" text-anchor="middle" font-family="Inter" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1">4 initiatives - 1,500+ visits - 6pp improvement in awareness - 60+ attendees</text>
+            </svg>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-12">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color:var(--accent)">Findings</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Key Insights</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">Four findings that surfaced consistently across survey cycles and listening sessions - each driving a distinct organizational response.</p>
+        </div>
+        <p class="text-[10px] font-bold tracking-widest uppercase mb-5" style="color:var(--accent)">Primary findings - initiative-driving</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+            <div class="rounded-2xl p-7 border flex flex-col" style="background:var(--surface-high);border-color:rgba(172,199,251,0.2)">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-continuous self-start">01 - Transparency</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Builders Needed Rationale Behind Guidance</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Builder teams needed clearer explanations of the reasoning behind component guidance to support stakeholder alignment and reduce pushback during implementation. Without this context, builders struggled to advocate for design system standards internally.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color:var(--accent)">Initiative launched</p>
+                    <p class="text-[var(--text-muted)] text-xs">Research visibility program - 2024 org goal - 1,500+ visits to date</p>
+                </div>
+            </div>
+            <div class="rounded-2xl p-7 border flex flex-col" style="background:var(--surface-high);border-color:rgba(172,199,251,0.2)">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-survey self-start">02 - Updates Awareness</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Builders Shared Difficulty Staying Informed</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Builders struggled to stay informed about updates and priorities. This finding was tracked longitudinally - a baseline metric added in Q3 2023 showed a 6 percentage point improvement by Q1 2024 after communication changes were implemented.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color:var(--accent)">Initiative launched</p>
+                    <p class="text-[var(--text-muted)] text-xs">Releases and Roadmap Share Sessions - 60+ attendees at first session</p>
+                </div>
+            </div>
+            <div class="rounded-2xl p-7 border flex flex-col" style="background:var(--surface-high);border-color:rgba(172,199,251,0.2)">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-strategy self-start">03 - Contribution Pathways</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Teams Wanted to Contribute but Lacked Clear Pathways</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Teams showed willingness to contribute reusable solutions but needed clearer processes and guidance pathways. Only 61% of respondents were aware of the exact contributions process - directly validating and accelerating a major contributions revamp.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color:var(--accent)">Initiative launched</p>
+                    <p class="text-[var(--text-muted)] text-xs">New contributions article clarifying effort expectations and process steps</p>
+                </div>
+            </div>
+        </div>
+        <p class="text-[10px] font-bold tracking-widest uppercase mb-5 mt-12" style="color:var(--text-dim)">Additional finding - deepened the picture</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="rounded-xl p-6 border flex flex-col" style="background:#1a1b1d;border-color:rgba(142,144,154,0.12)">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full inline-block mb-4 self-start tag-secondary">04 - Documentation</span>
+                <h3 class="font-['Manrope'] font-semibold text-base text-white mb-2 leading-snug">Implementation Friction Driven by Documentation Usability</h3>
+                <p class="text-[var(--text-dim)] text-sm leading-relaxed flex-grow">Friction was driven more by how guidance was presented than by the complexity of the components themselves. Builders relied on clear documentation structure and practical examples to implement solutions more efficiently.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color:var(--accent)">Outcomes</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Impact & Decisions Influenced</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background:var(--accent-dim)"><span class="material-symbols-outlined text-[16px]" style="color:var(--accent)">trending_up</span></div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Improved feedback quality and participation</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Survey and session refinements improved clarity, accessibility, and relevance of input - including clearer survey structure, themed sessions, and pre-collected discussion topics.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background:var(--accent-dim)"><span class="material-symbols-outlined text-[16px]" style="color:var(--accent)">edit_document</span></div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Strengthened guidance clarity and builder efficiency</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Insights informed improvements to guidance clarity, documentation usability, and decision support - reducing friction and supporting faster implementation across builder teams.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background:var(--accent-dim)"><span class="material-symbols-outlined text-[16px]" style="color:var(--accent)">visibility</span></div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Increased transparency and visibility into decisions and updates</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Recommendations improved communication practices and visibility of updates - tracked longitudinally, showing a 6 percentage point decrease in builders feeling uninformed between Q3 2023 and Q1 2024.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background:var(--accent-dim)"><span class="material-symbols-outlined text-[16px]" style="color:var(--accent)">accessibility</span></div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Expanded access to accessibility and learning resources</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Cross-linking accessibility guidance and training resources on the design system website reduced confusion and supported teams in building more accessible experiences.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background:var(--accent-dim)"><span class="material-symbols-outlined text-[16px]" style="color:var(--accent)">hub</span></div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Informed organizational priorities and cross-functional workstreams</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Findings shaped design system priorities adopted across outreach, engineering, product, and design - guiding targeted initiatives to improve guidance clarity, communication practices, and builder participation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-8 mb-32 fade-up">
+        <div class="editorial-gradient rounded-[2rem] p-12 md:p-16 relative overflow-hidden">
+            <div class="relative z-10 max-w-2xl">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-6 text-[#001b3e]/60">Researcher Reflection</span>
+                <blockquote class="font-['Manrope'] font-bold text-2xl md:text-3xl text-[#001b3e] leading-snug mb-8">
+                    "Continuous feedback is only valuable if you close the loop. Research earns trust not by finding problems, but by measuring whether the solutions worked."
+                </blockquote>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed mb-4">
+                    By improving how feedback was gathered and acted upon, this program strengthened transparency, trust, and shared ownership - ensuring the design system evolved in alignment with builder needs rather than internal assumptions.
+                </p>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed">
+                    The most important methodological decision was adding a baseline metric in Q3 2023 specifically to track the impact of a recommendation not yet implemented. That single design choice transformed a feedback program into a longitudinal study of organizational change.
+                </p>
+            </div>
+            <div class="absolute top-1/2 right-8 -translate-y-1/2 opacity-5 hidden lg:block">
+                <span class="material-symbols-outlined text-[280px] text-[#001b3e]">hub</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-12"/>
+        <div class="flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-[var(--text-dim)] hover:text-white transition-colors text-sm font-medium">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> All case studies
+            </a>
+            <a href="case-study-accessibility.html" class="group flex items-center gap-3 text-right">
+                <div>
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color:var(--accent)">Next case study</p>
+                    <p class="text-white font-semibold text-sm group-hover:text-[var(--accent)] transition-colors">How Rigorous Inclusive Research Resolved a Contested Accessibility Decision →</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-[#0d0e10] w-full py-16 px-8 border-t border-white/10">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-10 max-w-7xl mx-auto">
+        <div class="flex flex-col gap-2">
+            <div class="text-lg font-bold text-white font-['Manrope'] uppercase tracking-tighter">BHOOMIKA <span style="color:var(--accent)">| PHD UXR</span></div>
+            <p class="text-[#9c9da4] text-xs">Human-AI Interaction & Enterprise Scale</p>
+        </div>
+        <div class="text-[#45474d] font-['Inter'] text-[0.7rem] font-medium tracking-wide uppercase">© 2026 Bhoomika</div>
+    </div>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

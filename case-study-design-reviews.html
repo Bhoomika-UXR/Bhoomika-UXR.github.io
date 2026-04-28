@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Scaling Design Review Consistency | Bhoomika | UX Research</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#0d0e10",
+                        "on-surface": "#e3e2e5",
+                        "primary-container": "#acc7fb",
+                        "primary": "#d6e2ff",
+                        "surface-container-high": "#292a2c",
+                        "outline": "#8e909a",
+                        "surface-container-low": "#1b1c1e",
+                        "on-surface-variant": "#c4c6d0",
+                        "outline-variant": "#43474f",
+                        "surface-container": "#1f2022",
+                        "surface": "#121315",
+                        "background": "#121315",
+                        "on-background": "#e3e2e5",
+                        "surface-container-highest": "#343537",
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --accent: #acc7fb;
+            --accent-dim: rgba(172, 199, 251, 0.12);
+            --accent-border: rgba(172, 199, 251, 0.2);
+            --surface: #121315;
+            --surface-high: #1f2022;
+            --surface-higher: #292a2c;
+            --text-primary: #e3e2e5;
+            --text-muted: #c4c6d0;
+            --text-dim: #8e909a;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--surface);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .editorial-gradient { background: linear-gradient(135deg, #acc7fb 0%, #e2e0f9 100%); }
+        .glass-panel { background: rgba(35, 38, 43, 0.6); backdrop-filter: blur(20px); }
+        .ghost-border { outline: 1px solid rgba(142, 144, 154, 0.1); }
+
+        .process-step { position: relative; }
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 44px;
+            bottom: -24px;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent-border), transparent);
+        }
+
+        .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(172,199,251,0.25); }
+            70% { box-shadow: 0 0 0 12px rgba(172,199,251,0); }
+            100% { box-shadow: 0 0 0 0 rgba(172,199,251,0); }
+        }
+        .metric-pulse { animation: pulse-ring 3s ease-out infinite; }
+
+        .tag-governance { background: rgba(172,199,251,0.12); color: #acc7fb; border: 1px solid rgba(172,199,251,0.2); }
+        .tag-operations { background: rgba(226,224,249,0.12); color: #e2e0f9; border: 1px solid rgba(226,224,249,0.2); }
+        .tag-scale { background: rgba(198,196,220,0.12); color: #c6c4dc; border: 1px solid rgba(198,196,220,0.2); }
+        .tag-secondary { background: rgba(197,198,205,0.08); color: #9c9da4; border: 1px solid rgba(197,198,205,0.12); }
+
+        .section-divider { border: none; border-top: 1px solid rgba(142,144,154,0.1); }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 bg-[#0d0e10]/60 backdrop-blur-[20px] border-b border-white/10">
+    <div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+        <a href="index.html" class="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm font-medium">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            Back to Portfolio
+        </a>
+        <div class="text-base font-extrabold tracking-tighter text-white font-['Manrope'] uppercase">
+            BHOOMIKA <span style="color: var(--accent)">| UXR</span>
+        </div>
+        <a href="mailto:bhoomika17@gmail.com" class="editorial-gradient text-[#001b3e] font-bold py-2.5 px-6 rounded-xl text-sm transition-transform active:scale-95">
+            Get in Touch
+        </a>
+    </div>
+</nav>
+
+<main class="pt-28">
+
+    <!-- HERO -->
+    <header class="max-w-7xl mx-auto px-8 pt-12 pb-20">
+        <div class="mb-6 flex flex-wrap items-center gap-3">
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-governance">Research Operations</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-operations">Program Scale</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-scale">Cross-Functional</span>
+        </div>
+
+        <h1 class="font-['Manrope'] font-extrabold text-[2.8rem] md:text-[4.5rem] leading-[1.0] tracking-[-0.03em] text-white mb-8 max-w-5xl">
+            Clarity, Role Definition & Insight Flow: <span style="color: var(--accent)">Research to Scale a High-Frequency Design Review Program</span>
+        </h1>
+
+        <p class="text-[var(--text-muted)] text-xl leading-relaxed max-w-3xl mb-12">
+            Led research across a large-scale design review program to address growing inconsistency and ambiguity as participation scaled across teams - identifying gaps that reduced review effectiveness and limited how learnings informed design system improvements.
+        </p>
+
+        <!-- Metadata strip -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Role</p>
+                <p class="text-sm font-semibold text-white">UX Research Lead</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Scope</p>
+                <p class="text-sm font-semibold text-white">End-to-end program research</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Sessions Observed</p>
+                <p class="text-sm font-semibold text-white">12 live review sessions</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Methods</p>
+                <p class="text-sm font-semibold text-white">Stakeholder interviews · Contextual inquiry · Focus groups · Semi-structured interviews</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- IMPACT METRICS -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="metric-pulse bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">↗</p>
+                <p class="font-semibold text-white text-lg mb-2">Program Consistency</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Standardized expectations, roles, and session structure across a high-frequency review program running 4-6 sessions daily - improving consistency and reducing repeated clarification at scale.</p>
+            </div>
+            <div class="bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">↗</p>
+                <p class="font-semibold text-white text-lg mb-2">Cross-Functional Alignment</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Findings delivered across program and design system leadership - aligning stakeholders on key challenges and recommendations to improve consistency and enable a structured insight feedback loop.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEXT -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Background</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Context & Problem Space</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">
+                    A structured design review program was used across the organization to ensure product experiences met a high bar for usability, accessibility, and consistency prior to launch. The program was a required review for new services and high-priority feature launches - making it a critical quality gate before release.
+                </p>
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">
+                    Sessions ran at high frequency - 4 to 6 per day - with each session lasting one hour and involving cross-functional participants including reviewers, facilitators, design system ambassadors, and product teams. As adoption increased and the program scaled across multiple teams, differences in expectations and inconsistent feedback practices created friction.
+                </p>
+                <div class="bg-[var(--surface-higher)] rounded-xl p-6 border-l-4 mt-6" style="border-color: var(--accent)">
+                    <p class="text-sm font-bold text-white mb-3">Scaling introduced risk across three dimensions:</p>
+                    <ul class="space-y-2 text-[var(--text-muted)] text-sm">
+                        <li class="flex gap-2"><span style="color: var(--accent)">-</span> Review effectiveness and consistency across teams</li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">-</span> Role clarity across reviewers, facilitators, and ambassadors</li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">-</span> The ability to translate recurring insights into design system improvements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH APPROACH -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Process</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Research Approach</h2>
+                <p class="text-[var(--text-muted)] text-sm mt-4 leading-relaxed">A multi-method study designed to understand the design review experience across the full ecosystem - capturing perspectives from all roles involved.</p>
+            </div>
+            <div class="md:col-span-8">
+
+                <!-- Phase 1 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">01</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Stakeholder Interviews</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-governance font-semibold">Problem definition</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Interviews with program and design system leadership to define the problem space, surface competing priorities, and establish learning goals before fieldwork began.
+                        </p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Output</span>
+                            Defined research focus areas and surfaced where leadership perceived the program was falling short
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">02</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Contextual Inquiry - Live Session Observation</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-operations font-semibold">12 sessions observed</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Observed 12 live design review sessions to capture friction, role confusion, and inconsistent feedback practices as they occurred in practice - rather than relying on participant recall alone.
+                        </p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                                <span class="text-white font-medium block mb-1">Focus areas</span>
+                                Session structure - role behavior - feedback consistency - insight capture practices
+                            </div>
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                                <span class="text-white font-medium block mb-1">Why contextual inquiry</span>
+                                At 4-6 sessions per day, observed behavior revealed patterns that interviews alone would not have surfaced
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">03</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Focus Groups with Product Teams</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-scale font-semibold">Participant perspective</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Focus groups with product teams participating in reviews to understand their experience of the process - including how they prepared, how they interpreted feedback, and where the review felt unclear or inconsistent.
+                        </p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Key contribution</span>
+                            Surfaced the participant-side experience of role ambiguity - distinct from how reviewers and facilitators perceived the same sessions
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="process-step flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">04</div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Semi-Structured Interviews with Reviewers, Facilitators & Ambassadors</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-governance font-semibold">Role-specific depth</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            In-depth interviews with reviewers, facilitators, and design system ambassadors to understand how each role experienced the program - including where responsibilities overlapped, where expectations were unclear, and where insights were lost after sessions ended.
+                        </p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Output</span>
+                            Role-specific findings that enabled targeted recommendations for each participant type rather than generic program improvements
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INSIGHT TO IMPACT VISUAL -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-10">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Research Impact</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">From Insight to Program Improvement</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">How three research insights translated into concrete program improvements across a high-frequency enterprise review process.</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 overflow-hidden" style="background: var(--surface-high)">
+            <svg width="100%" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing how three research insights mapped to three program improvements">
+                <defs>
+                    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M2 1L8 5L2 9" fill="none" stroke="#acc7fb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </marker>
+                </defs>
+
+                <!-- Column headers -->
+                <text x="200" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">INSIGHT</text>
+                <text x="480" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#8e909a" letter-spacing="2">MECHANISM</text>
+                <text x="760" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">IMPROVEMENT</text>
+                <line x1="40" y1="50" x2="920" y2="50" stroke="#43474f" stroke-width="0.5"/>
+
+                <!-- ROW 1 -->
+                <rect x="40" y="68" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="58" y="88" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">01 · EXPECTATIONS</text>
+                <text x="58" y="106" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Unclear Goals Reduced Effectiveness</text>
+                <text x="58" y="122" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">When success criteria were not established</text>
+                <text x="58" y="136" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">early, participants engaged less confidently</text>
+
+                <line x1="342" y1="106" x2="390" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="82" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="102" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Session observation</text>
+                <text x="479" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ participant focus groups</text>
+                <line x1="567" y1="106" x2="615" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="68" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="632" y="88" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">PROGRAM IMPROVEMENT</text>
+                <text x="632" y="106" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Structured session onboarding</text>
+                <text x="632" y="122" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Centralized wiki clarifying goals, roles, and</text>
+                <text x="632" y="136" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">session structure before participation</text>
+
+                <!-- ROW 2 -->
+                <rect x="40" y="174" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="58" y="194" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">02 · ROLE CLARITY</text>
+                <text x="58" y="212" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Ambiguity Created Inefficiency</text>
+                <text x="58" y="228" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Participants were unsure how responsibilities</text>
+                <text x="58" y="242" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">differed across reviewers, ambassadors, facilitators</text>
+
+                <line x1="342" y1="212" x2="390" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="188" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="208" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Role interviews</text>
+                <text x="479" y="224" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ session observation</text>
+                <line x1="567" y1="212" x2="615" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="174" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="632" y="194" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">PROGRAM IMPROVEMENT</text>
+                <text x="632" y="212" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Reusable session structures</text>
+                <text x="632" y="228" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Defined responsibilities per role; reduced</text>
+                <text x="632" y="242" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">coordination overhead across sessions</text>
+
+                <!-- ROW 3 -->
+                <rect x="40" y="280" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="58" y="300" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">03 · INSIGHT FLOW</text>
+                <text x="58" y="318" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Recurring Themes Were Lost</text>
+                <text x="58" y="334" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">No structured way to capture or route</text>
+                <text x="58" y="348" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">insights to inform design system guidance</text>
+
+                <line x1="342" y1="318" x2="390" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="294" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="314" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Thematic synthesis</text>
+                <text x="479" y="330" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ stakeholder readout</text>
+                <line x1="567" y1="318" x2="615" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="280" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="632" y="300" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">PROGRAM IMPROVEMENT</text>
+                <text x="632" y="318" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Structured feedback loop established</text>
+                <text x="632" y="334" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Mechanism for reviewers and ambassadors</text>
+                <text x="632" y="348" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">to share recurring insights with design system team</text>
+
+                <!-- AGGREGATE IMPACT BAR -->
+                <rect x="40" y="392" width="880" height="100" rx="12" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.12)" stroke-width="1"/>
+                <text x="480" y="418" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="2">AGGREGATE IMPACT</text>
+
+                <rect x="80" y="430" width="220" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="190" y="449" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">4-6x Daily</text>
+                <text x="190" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">program frequency at time of study</text>
+
+                <rect x="370" y="430" width="220" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="480" y="449" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">4 Roles</text>
+                <text x="480" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">research covered full review ecosystem</text>
+
+                <rect x="660" y="430" width="220" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="770" y="449" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">3 Improvements</text>
+                <text x="770" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">directly traceable to research findings</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- KEY INSIGHTS 3+3 -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-12">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Findings</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Key Insights</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">Three findings that together diagnosed why a high-frequency review program was losing consistency and impact as it scaled.</p>
+        </div>
+
+        <!-- PRIMARY 3 -->
+        <p class="text-[10px] font-bold tracking-widest uppercase mb-5" style="color: var(--accent)">Primary findings - program-driving</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-governance self-start">01 · Expectations</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Unclear Expectations Reduced Session Effectiveness</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">When goals, success criteria, and how feedback would be used were not established early, participants were less confident in how to engage and how to apply feedback after sessions ended.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Improvement influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Centralized onboarding wiki clarifying goals, roles, and session structure</p>
+                </div>
+            </div>
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-operations self-start">02 · Role Clarity</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Ambiguity Around Roles Created Inefficiency</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Participants were often unsure how responsibilities differed among reviewers, ambassadors, and facilitators - leading to hesitation, duplicated effort, and inconsistent engagement across sessions.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Improvement influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Reusable session structures with defined responsibilities per role</p>
+                </div>
+            </div>
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-scale self-start">03 · Insight Flow</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Insight Flow Was Inconsistent Across Sessions</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Recurring themes surfaced across reviews, but there was no structured way to capture or route insights to inform design system guidance and prioritization. Valuable patterns were identified but not systematically shared.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Improvement influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Structured feedback loop connecting reviewers and ambassadors to the design system team</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Outcomes</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Impact & Decisions Influenced</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">verified</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Improved effectiveness of a critical product launch gate</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">The design review program was a required step for new services and high-priority feature launches. Improving clarity and consistency increased the effectiveness of reviews as a quality gate, enabling teams to engage more confidently and apply feedback more reliably before launch.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">tune</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Improved consistency across high-frequency sessions</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">With 4-6 one-hour sessions conducted daily, standardizing expectations, roles, and session structure reduced repeated clarification and improved consistency across reviews at scale.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">group</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Reduced coordination overhead across cross-functional participants</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Clarifying roles and introducing reusable session structures reduced ambiguity around responsibilities, enabling participants to engage more efficiently and reducing hesitation during reviews.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">school</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Reduced onboarding time and repeated clarification</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">A centralized onboarding wiki clarified roles, expectations, and session structure - reducing reliance on repeated explanations and enabling participants to engage more effectively from the start.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">hub</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Enabled structured feedback loop to inform design system improvements</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Established a mechanism for reviewers and ambassadors to share recurring insights with the design system team - improving visibility into common patterns and informing system-level guidance.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">handshake</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Aligned stakeholders across program and design system leadership</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Delivered readouts across leadership groups to align on key challenges and recommendations - supporting adoption of improvements and future program evolution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFLECTION -->
+    <section class="max-w-7xl mx-auto px-8 mb-32 fade-up">
+        <div class="editorial-gradient rounded-[2rem] p-12 md:p-16 relative overflow-hidden">
+            <div class="relative z-10 max-w-2xl">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-6 text-[#001b3e]/60">Researcher Reflection</span>
+                <blockquote class="font-['Manrope'] font-bold text-2xl md:text-3xl text-[#001b3e] leading-snug mb-8">
+                    "Program experiences scale successfully when expectations are explicit, roles are clearly defined, and insights flow efficiently between participants and platform teams."
+                </blockquote>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed mb-4">
+                    Improving clarity, strengthening onboarding, and enabling structured feedback loops not only increased consistency across sessions - it also strengthened how design reviews contributed to broader system improvements.
+                </p>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed">
+                    This work demonstrated that operational research - studying how programs run, not just what products do - is a meaningful lever for improving quality and consistency at enterprise scale.
+                </p>
+            </div>
+            <div class="absolute top-1/2 right-8 -translate-y-1/2 opacity-5 hidden lg:block">
+                <span class="material-symbols-outlined text-[280px] text-[#001b3e]">hub</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEXT CASE STUDY NAV -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-12"/>
+        <div class="flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-[var(--text-dim)] hover:text-white transition-colors text-sm font-medium">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> All case studies
+            </a>
+            <a href="case-study-ai-interface-tool.html" class="group flex items-center gap-3 text-right">
+                <div>
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Back to first case study</p>
+                    <p class="text-white font-semibold text-sm group-hover:text-[var(--accent)] transition-colors">Trust, Learnability & Workflow Fit in an AI-Assisted Builder Tool →</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-[#0d0e10] w-full py-16 px-8 border-t border-white/10">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-10 max-w-7xl mx-auto">
+        <div class="flex flex-col gap-2">
+            <div class="text-lg font-bold text-white font-['Manrope'] uppercase tracking-tighter">BHOOMIKA <span style="color: var(--accent)">| PHD UXR</span></div>
+            <p class="text-[#9c9da4] text-xs">Human-AI Interaction & Enterprise Scale</p>
+        </div>
+        <div class="text-[#45474d] font-['Inter'] text-[0.7rem] font-medium tracking-wide uppercase">
+            © 2026 Bhoomika
+        </div>
+    </div>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
