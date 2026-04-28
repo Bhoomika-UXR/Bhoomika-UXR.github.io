@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Bhoomika | PhD Senior UX Researcher | Human-AI Interaction & Enterprise Scale</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                "colors": {
+                        "surface-container-lowest": "#0d0e10",
+                        "secondary-container": "#45474d",
+                        "on-surface": "#e3e2e5",
+                        "primary-container": "#acc7fb",
+                        "primary": "#d6e2ff",
+                        "surface-bright": "#38393b",
+                        "surface-container-high": "#292a2c",
+                        "outline": "#8e909a",
+                        "surface-container-low": "#1b1c1e",
+                        "on-surface-variant": "#c4c6d0",
+                        "outline-variant": "#43474f",
+                        "surface-container": "#1f2022",
+                        "surface": "#121315",
+                        "background": "#121315",
+                        "on-background": "#e3e2e5",
+                        "surface-container-highest": "#343537",
+                        "inverse-surface": "#e3e2e5",
+                        "surface-variant": "#343537",
+                        "on-secondary-container": "#b4b5bc",
+                        "secondary": "#c5c6cd",
+                        "on-primary": "#11305b",
+                        "surface-tint": "#acc7fb",
+                        "inverse-primary": "#445f8c"
+                },
+                "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                },
+                "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                }
+              },
+            },
+          }
+        </script>
+    <style>
+        .editorial-gradient {
+            background: linear-gradient(135deg, #acc7fb 0%, #e2e0f9 100%);
+        }
+        .glass-panel {
+            background: rgba(35, 38, 43, 0.6);
+            backdrop-filter: blur(20px);
+        }
+        .ghost-border {
+            outline: 1px solid rgba(142, 144, 154, 0.1);
+        }
+        body {
+            background-color: #0d0e10;
+            color: #e3e2e5;
+            font-family: 'Inter', sans-serif;
+        }
+        .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- NAV -->
+    <nav class="fixed top-0 w-full z-50 bg-[#0d0e10]/60 backdrop-blur-[20px] border-b border-white/10">
+        <div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+            <div class="text-xl font-extrabold tracking-tighter text-white font-['Manrope'] uppercase">
+                BHOOMIKA <span class="text-[#acc7fb]">| HUMAN-AI INTERACTION & SCALE</span>
+            </div>
+            <div class="hidden md:flex items-center gap-10">
+                <a class="text-[#acc7fb] font-['Inter'] text-[0.875rem] font-bold tracking-wide" href="#work">Research</a>
+                <a class="text-[#9c9da4] hover:text-white transition-colors font-['Inter'] text-[0.875rem] font-medium tracking-wide" href="#about">About</a>
+                <a class="text-[#9c9da4] hover:text-white transition-colors font-['Inter'] text-[0.875rem] font-medium tracking-wide" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=LpDYKTYAAAAJ" target="_blank">Publications</a>
+            </div>
+            <div class="flex items-center gap-6">
+                <a href="mailto:bhoomika17@gmail.com" class="text-[#9c9da4] hover:text-[#acc7fb] transition-colors">
+                    <span class="material-symbols-outlined">mail</span>
+                </a>
+                <a class="editorial-gradient text-[#001b3e] font-bold py-2.5 px-6 rounded-xl text-sm transition-transform active:scale-95" href="#">Download Resume</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-32">
+
+        <!-- HERO -->
+        <section class="max-w-7xl mx-auto px-8 mb-32">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <div class="lg:col-span-8">
+                    <span class="text-[#acc7fb] font-label uppercase tracking-widest text-xs mb-6 block font-bold">PhD Senior UX Researcher · 10+ Years Applied & Industry Research</span>
+                    <h1 class="text-white font-headline font-extrabold text-[3.5rem] md:text-[5.5rem] leading-[1.0] tracking-[-0.04em] mb-10">
+                        Senior Research Lead specializing in how humans <span class="text-[#acc7fb]">adopt, trust, and work alongside AI</span> at enterprise scale.
+                    </h1>
+                    <p class="text-on-surface-variant text-xl md:text-2xl leading-relaxed max-w-4xl font-body">
+                        I am a PhD Senior UX Researcher with 5+ years of industry experience, focused on the intersection of human behavior and platform-scale AI. From defining AI interaction patterns to operationalizing design governance for 200+ teams, I transform complex user insights into standardized systems that drive engineering velocity and inclusive design.
+                    </p>
+                    <p class="mt-6 text-[#acc7fb] text-xl md:text-2xl leading-relaxed max-w-4xl font-body font-medium">
+                        I believe AI can be a genuine enabler of human productivity — but only when built with trust and transparency at its foundation. That belief drives every study I run.
+                    </p>
+                    <div class="mt-10 flex gap-4 items-center">
+                        <span class="flex items-center gap-2 text-sm text-[#9c9da4] font-medium px-4 py-1.5 bg-white/5 rounded-full border border-white/10">
+                            <span class="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse"></span>
+                            Open to Strategic AI & Leadership Roles (Starting May 2026)
+                        </span>
+                    </div>
+                </div>
+                <div class="lg:col-span-4 flex justify-end">
+                    <div class="w-full aspect-[4/5] bg-surface-container rounded-3xl overflow-hidden relative ghost-border group">
+                        <img alt="Bhoomika, PhD Senior UXR" class="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-0 transition-all duration-700" src="bhoomika-headshot.png"/>
+                        <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 p-4 glass-panel rounded-xl border border-white/10">
+                            <p class="text-[10px] font-bold text-[#acc7fb] uppercase tracking-tighter mb-1">Impact Metric</p>
+                            <p class="text-sm text-white font-medium">Scaling Systems for 200+ Global Teams</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT -->
+        <section class="max-w-7xl mx-auto px-8 mb-32 fade-up" id="about">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+                <div class="md:col-span-4">
+                    <span class="text-[#acc7fb] font-label uppercase tracking-widest text-xs mb-4 block font-bold">About</span>
+                    <h2 class="text-white font-headline font-extrabold text-3xl tracking-tight">The researcher behind the work</h2>
+                </div>
+                <div class="md:col-span-8">
+                    <div class="bg-[#1f2022] rounded-2xl p-10 border border-white/5">
+                        <p class="text-[#c4c6d0] text-lg leading-relaxed mb-6">
+                            I hold a PhD in Interdisciplinary Human Communication from Arizona State University, with 10+ years of applied and industry research experience — including 5+ years in industry focused on human-AI interaction at enterprise scale.
+                        </p>
+                        <p class="text-[#c4c6d0] text-lg leading-relaxed mb-6">
+                            My work sits at the intersection of behavioral research, design systems, and emerging AI — spanning longitudinal studies, mixed-method evaluations, and systems-level research that informs how products are built and adopted across large organizations.
+                        </p>
+                        <p class="text-[#acc7fb] text-lg leading-relaxed font-medium">
+                            I believe AI can be a genuine enabler of human productivity — but only when built with trust and transparency at its foundation. That belief drives every study I design and every insight I deliver.
+                        </p>
+                        <div class="mt-8 pt-8 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-6">
+                            <div>
+                                <p class="text-2xl font-extrabold text-white font-['Manrope']">10+</p>
+                                <p class="text-xs text-[#8e909a] mt-1">Years research experience</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-extrabold text-white font-['Manrope']">5+</p>
+                                <p class="text-xs text-[#8e909a] mt-1">Years industry UXR</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-extrabold text-white font-['Manrope']">200+</p>
+                                <p class="text-xs text-[#8e909a] mt-1">Teams impacted</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl font-extrabold text-white font-['Manrope']">230+</p>
+                                <p class="text-xs text-[#8e909a] mt-1">Services standardized</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CASE STUDIES -->
+        <section class="max-w-7xl mx-auto px-8 mb-40" id="work">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <span class="text-[#acc7fb] font-label uppercase tracking-widest text-xs mb-4 block font-bold">Selected Research</span>
+                    <h2 class="text-white font-headline font-extrabold text-4xl tracking-tight">Featured Work</h2>
+                </div>
+                <div class="text-[#9c9da4] font-body text-sm max-w-xs leading-relaxed">
+                    Synthesizing longitudinal behavioral insights into scalable standards for global AI and enterprise platforms.
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Case Study 1 -->
+                <a class="group flex flex-col h-full bg-surface-container rounded-2xl overflow-hidden border-l-4 border-primary-container ghost-border transition-all duration-300 hover:bg-surface-container-high" href="case-study-ai-interface-tool.html">
+                    <div class="aspect-video w-full overflow-hidden bg-surface-container-highest">
+                        <img alt="AI Trust Research" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=800&q=80"/>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <span class="text-[#acc7fb] font-label text-[10px] uppercase tracking-widest mb-3">Longitudinal Research · 0→1 Strategy</span>
+                        <h3 class="text-white font-headline font-bold text-xl mb-4 leading-tight">Trust, Learnability & Workflow Fit in an AI-Assisted Builder Tool</h3>
+                        <p class="text-on-surface-variant text-sm font-body leading-relaxed mb-4">A longitudinal study evaluating adoption readiness for a prompt-driven AI tool — identifying gaps in mental models, transparency, and workflow fit that shaped the product roadmap.</p>
+                        <div class="flex gap-4 mb-6">
+                            <span class="text-xs text-[#8e909a]">480+ eng. hours reclaimed</span>
+                            <span class="text-xs text-[#8e909a]">·</span>
+                            <span class="text-xs text-[#8e909a]">5 roadmap decisions</span>
+                        </div>
+                        <div class="mt-auto flex items-center text-[#acc7fb] font-medium text-sm group-hover:gap-2 transition-all">
+                            View Case Study <span class="material-symbols-outlined ml-2 text-[18px]">arrow_forward</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Case Study 2 -->
+                <a class="group flex flex-col h-full bg-surface-container rounded-2xl overflow-hidden border-l-4 border-primary-container ghost-border transition-all duration-300 hover:bg-surface-container-high" href="case-study-ai-design-systems.html">
+                    <div class="aspect-video w-full overflow-hidden bg-surface-container-highest">
+                        <img alt="AI Design Systems" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80"/>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <span class="text-[#acc7fb] font-label text-[10px] uppercase tracking-widest mb-3">Foundational Research · Design Systems</span>
+                        <h3 class="text-white font-headline font-bold text-xl mb-4 leading-tight">Trust Signals, Interaction Patterns & Ecosystem Scale for an AI Design System</h3>
+                        <p class="text-on-surface-variant text-sm font-body leading-relaxed mb-4">Multi-method foundational research identifying gaps in AI guidance, trust signaling, and contribution pathways — directly informing the Generative AI design system roadmap.</p>
+                        <div class="flex gap-4 mb-6">
+                            <span class="text-xs text-[#8e909a]">400+ component visits</span>
+                            <span class="text-xs text-[#8e909a]">·</span>
+                            <span class="text-xs text-[#8e909a]">AI system at scale</span>
+                        </div>
+                        <div class="mt-auto flex items-center text-[#acc7fb] font-medium text-sm group-hover:gap-2 transition-all">
+                            View Case Study <span class="material-symbols-outlined ml-2 text-[18px]">arrow_forward</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Case Study 3 -->
+                <a class="group flex flex-col h-full bg-surface-container rounded-2xl overflow-hidden border-l-4 border-primary-container ghost-border transition-all duration-300 hover:bg-surface-container-high" href="case-study-accessibility.html">
+                    <div class="aspect-video w-full overflow-hidden bg-surface-container-highest">
+                        <img alt="Accessibility Research" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&fit=crop&w=800&q=80"/>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <span class="text-[#acc7fb] font-label text-[10px] uppercase tracking-widest mb-3">Inclusive Research · Statistical Analysis</span>
+                        <h3 class="text-white font-headline font-bold text-xl mb-4 leading-tight">How Rigorous Inclusive Research Resolved a Contested Accessibility Decision</h3>
+                        <p class="text-on-surface-variant text-sm font-body leading-relaxed mb-4">Mixed-method research combining ANOVA and inclusive evaluation to resolve a high-stakes accessibility debate — enabling a standard adopted across 230+ services.</p>
+                        <div class="flex gap-4 mb-6">
+                            <span class="text-xs text-[#8e909a]">230+ services standardized</span>
+                            <span class="text-xs text-[#8e909a]">·</span>
+                            <span class="text-xs text-[#8e909a]">150+ forum attendees</span>
+                        </div>
+                        <div class="mt-auto flex items-center text-[#acc7fb] font-medium text-sm group-hover:gap-2 transition-all">
+                            View Case Study <span class="material-symbols-outlined ml-2 text-[18px]">arrow_forward</span>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="max-w-7xl mx-auto px-8 mb-40 fade-up">
+            <div class="editorial-gradient rounded-[2rem] p-12 md:p-20 text-[#001b3e] relative overflow-hidden">
+                <div class="relative z-10 max-w-2xl">
+                    <h2 class="font-headline font-extrabold text-4xl md:text-5xl mb-8 leading-tight">Let's build more intelligent, trustworthy systems — together.</h2>
+                    <p class="text-lg md:text-xl font-medium mb-12 opacity-90">Currently at AWS. Open to senior leadership opportunities and strategic advisory roles within AI-first organizations starting May 2026.</p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="mailto:bhoomika17@gmail.com" class="bg-[#0d0e10] text-white font-bold py-4 px-10 rounded-xl hover:opacity-90 transition-all">Get in touch</a>
+                        <a href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=LpDYKTYAAAAJ" target="_blank" class="ghost-border border-[#001b3e]/20 bg-white/10 backdrop-blur-sm text-[#001b3e] font-bold py-4 px-10 rounded-xl hover:bg-white/20 transition-all">View Google Scholar</a>
+                    </div>
+                </div>
+                <div class="absolute top-1/2 right-0 -translate-y-1/2 opacity-10 hidden lg:block">
+                    <span class="material-symbols-outlined text-[300px]">hub</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-[#0d0e10] w-full py-16 px-8 border-t border-white/10">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-10 max-w-7xl mx-auto">
+            <div class="flex flex-col gap-2">
+                <div class="text-lg font-bold text-white font-headline uppercase tracking-tighter">BHOOMIKA <span class="text-[#acc7fb]">| PHD UXR</span></div>
+                <p class="text-[#9c9da4] text-xs">Human-AI Interaction & Enterprise Scale</p>
+            </div>
+            <div class="flex gap-8">
+                <a class="text-[#9c9da4] hover:text-[#acc7fb] transition-colors font-['Inter'] text-[0.75rem] font-bold tracking-widest uppercase" href="https://www.linkedin.com/in/bhoomikaphd" target="_blank">LinkedIn</a>
+                <a class="text-[#9c9da4] hover:text-[#acc7fb] transition-colors font-['Inter'] text-[0.75rem] font-bold tracking-widest uppercase" href="https://scholar.google.com/citations?view_op=list_works&hl=en&user=LpDYKTYAAAAJ" target="_blank">Google Scholar</a>
+            </div>
+            <div class="text-[#45474d] font-['Inter'] text-[0.7rem] font-medium tracking-wide uppercase">
+                © 2026 Bhoomika
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

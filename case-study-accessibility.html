@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Resolving a Contested Accessibility Decision | Bhoomika | UX Research</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#0d0e10",
+                        "on-surface": "#e3e2e5",
+                        "primary-container": "#acc7fb",
+                        "primary": "#d6e2ff",
+                        "surface-container-high": "#292a2c",
+                        "outline": "#8e909a",
+                        "surface-container-low": "#1b1c1e",
+                        "on-surface-variant": "#c4c6d0",
+                        "outline-variant": "#43474f",
+                        "surface-container": "#1f2022",
+                        "surface": "#121315",
+                        "background": "#121315",
+                        "on-background": "#e3e2e5",
+                        "surface-container-highest": "#343537",
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --accent: #acc7fb;
+            --accent-dim: rgba(172, 199, 251, 0.12);
+            --accent-border: rgba(172, 199, 251, 0.2);
+            --surface: #121315;
+            --surface-high: #1f2022;
+            --surface-higher: #292a2c;
+            --text-primary: #e3e2e5;
+            --text-muted: #c4c6d0;
+            --text-dim: #8e909a;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--surface);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .editorial-gradient { background: linear-gradient(135deg, #acc7fb 0%, #e2e0f9 100%); }
+        .glass-panel { background: rgba(35, 38, 43, 0.6); backdrop-filter: blur(20px); }
+        .ghost-border { outline: 1px solid rgba(142, 144, 154, 0.1); }
+
+        .process-step { position: relative; }
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 44px;
+            bottom: -24px;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent-border), transparent);
+        }
+
+        .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(172,199,251,0.25); }
+            70% { box-shadow: 0 0 0 12px rgba(172,199,251,0); }
+            100% { box-shadow: 0 0 0 0 rgba(172,199,251,0); }
+        }
+        .metric-pulse { animation: pulse-ring 3s ease-out infinite; }
+
+        .tag-inclusive { background: rgba(172,199,251,0.12); color: #acc7fb; border: 1px solid rgba(172,199,251,0.2); }
+        .tag-quant { background: rgba(226,224,249,0.12); color: #e2e0f9; border: 1px solid rgba(226,224,249,0.2); }
+        .tag-systems { background: rgba(198,196,220,0.12); color: #c6c4dc; border: 1px solid rgba(198,196,220,0.2); }
+        .tag-secondary { background: rgba(197,198,205,0.08); color: #9c9da4; border: 1px solid rgba(197,198,205,0.12); }
+
+        .section-divider { border: none; border-top: 1px solid rgba(142,144,154,0.1); }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 bg-[#0d0e10]/60 backdrop-blur-[20px] border-b border-white/10">
+    <div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+        <a href="index.html" class="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm font-medium">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            Back to Portfolio
+        </a>
+        <div class="text-base font-extrabold tracking-tighter text-white font-['Manrope'] uppercase">
+            BHOOMIKA <span style="color: var(--accent)">| UXR</span>
+        </div>
+        <a href="mailto:bhoomika17@gmail.com" class="editorial-gradient text-[#001b3e] font-bold py-2.5 px-6 rounded-xl text-sm transition-transform active:scale-95">
+            Get in Touch
+        </a>
+    </div>
+</nav>
+
+<main class="pt-28">
+
+    <!-- HERO -->
+    <header class="max-w-7xl mx-auto px-8 pt-12 pb-20">
+        <div class="mb-6 flex flex-wrap items-center gap-3">
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-inclusive">Inclusive Research</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-quant">Statistical Analysis</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-systems">Design Systems at Scale</span>
+        </div>
+
+        <h1 class="font-['Manrope'] font-extrabold text-[2.8rem] md:text-[4.5rem] leading-[1.0] tracking-[-0.03em] text-white mb-8 max-w-5xl">
+            How Rigorous Inclusive Research Resolved a Contested Accessibility Decision <span style="color: var(--accent)">Across 230+ Services</span>
+        </h1>
+
+        <p class="text-[var(--text-muted)] text-xl leading-relaxed max-w-3xl mb-12">
+            Mixed-method research combining statistical analysis and inclusive user evaluation to resolve a high-stakes accessibility debate — enabling an evidence-based standard adopted across a large enterprise platform.
+        </p>
+
+        <!-- Metadata strip -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Role</p>
+                <p class="text-sm font-semibold text-white">UX Research Lead</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Scope</p>
+                <p class="text-sm font-semibold text-white">Mixed-Method, Inclusive Research</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Participants</p>
+                <p class="text-sm font-semibold text-white">Inclusive of users with dyslexia & low vision</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Methods</p>
+                <p class="text-sm font-semibold text-white">Controlled evaluation · ANOVA · Qualitative feedback</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- IMPACT METRICS -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="metric-pulse bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">230+</p>
+                <p class="font-semibold text-white text-lg mb-2">Services Standardized</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">The validated link styling standard was adopted across 230+ services — resolving fragmentation risk and ensuring consistent accessibility compliance at enterprise scale.</p>
+            </div>
+            <div class="bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">150+</p>
+                <p class="font-semibold text-white text-lg mb-2">Methodology Reach</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Research approach shared at an org-wide accessibility forum attended by 150+ people — with multiple teams adopting both the standard and the methodology beyond the original project.</p>
+            </div>
+            <div class="bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">ANOVA</p>
+                <p class="font-semibold text-white text-lg mb-2">Deadlock Broken by Evidence</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Statistical analysis resolved conflicting stakeholder perspectives where subjective opinion had stalled decision-making — enabling a data-driven standard where none previously existed.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEXT -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Background</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Context & Problem Space</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">
+                    As accessibility standards strengthened across a large enterprise platform, link styling became a highly contested issue. A recent update raised concerns about legibility for users with visual and cognitive differences, potential accessibility violations, and inconsistency across teams if the standard was not widely adopted.
+                </p>
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">
+                    Some teams considered rolling back the change or introducing custom variations — creating a real risk of fragmentation across the design system. Leadership needed a data-driven decision to resolve conflicting stakeholder perspectives, ensure accessibility compliance, and maintain consistency at scale.
+                </p>
+                <div class="bg-[var(--surface-higher)] rounded-xl p-6 border-l-4 mt-6" style="border-color: var(--accent)">
+                    <p class="text-sm font-bold text-white mb-3">Without research intervention, three risks were in play:</p>
+                    <ul class="space-y-2 text-[var(--text-muted)] text-sm">
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> Rollback of an accessibility improvement based on perception rather than evidence</li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> Design system fragmentation as teams introduced custom link styling variations</li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> Accessibility compliance gaps across 230+ services</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH APPROACH -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Process</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Research Approach</h2>
+                <p class="text-[var(--text-muted)] text-sm mt-4 leading-relaxed">A mixed-method study designed to produce evidence strong enough to resolve a contested stakeholder decision — combining statistical rigor with inclusive qualitative insight.</p>
+            </div>
+            <div class="md:col-span-8">
+
+                <!-- Phase 1 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">01</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Controlled Evaluation of Styling Variations</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-quant font-semibold">Quantitative</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Designed a controlled evaluation of multiple link styling approaches, measuring readability and recognition performance across participant groups. Evaluation criteria balanced readability, accessibility compliance, and usability to ensure findings could support a standardization decision.
+                        </p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                                <span class="text-white font-medium block mb-1">Measures</span>
+                                Readability · Recognition accuracy · Visual comfort · Scanning efficiency
+                            </div>
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                                <span class="text-white font-medium block mb-1">Participants</span>
+                                Inclusive of users with dyslexia and low vision alongside the broader population
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">02</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Statistical Analysis (ANOVA)</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-quant font-semibold">Inferential statistics</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Applied ANOVA to evaluate performance differences across styling variations and participant groups. Statistical analysis was chosen specifically because the contested nature of the decision required evidence that could withstand stakeholder scrutiny — qualitative insight alone would not have resolved the deadlock.
+                        </p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Why ANOVA</span>
+                            Enabled comparison of performance across multiple styling conditions simultaneously — producing findings that were statistically defensible, not just directionally suggestive
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="process-step flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">03</div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Qualitative Accessibility Feedback</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-inclusive font-semibold">Inclusive methods</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Collected qualitative feedback on scanning behavior, visual clarity, and comfort across participant groups — with particular attention to the lived experience of users with dyslexia and low vision. Qualitative insights contextualised the quantitative findings and ensured the standard reflected real accessibility needs, not just measurable performance.
+                        </p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Key contribution</span>
+                            Qualitative feedback surfaced why spacing improvements helped — not just that they did — enabling more compelling communication of findings to stakeholders
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INSIGHT TO IMPACT VISUAL -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-10">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Research Impact</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">From Contested Decision to Evidence-Based Standard</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">How three research insights broke a stakeholder deadlock and enabled an accessible standard at scale.</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 overflow-hidden" style="background: var(--surface-high)">
+            <svg width="100%" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing how three research insights resolved a contested accessibility decision">
+                <defs>
+                    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M2 1L8 5L2 9" fill="none" stroke="#acc7fb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </marker>
+                </defs>
+
+                <!-- Column headers -->
+                <text x="200" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">INSIGHT</text>
+                <text x="480" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#8e909a" letter-spacing="2">EVIDENCE</text>
+                <text x="760" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">OUTCOME</text>
+                <line x1="40" y1="50" x2="920" y2="50" stroke="#43474f" stroke-width="0.5"/>
+
+                <!-- ROW 1 -->
+                <rect x="40" y="68" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="58" y="88" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">01 · INCLUSIVE RESEARCH</text>
+                <text x="58" y="106" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Spacing Aids Diverse Users</text>
+                <text x="58" y="122" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Increased spacing improved recognition and</text>
+                <text x="58" y="136" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">scanning for users with dyslexia & low vision</text>
+
+                <line x1="342" y1="106" x2="390" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="82" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="102" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Qualitative feedback</text>
+                <text x="479" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ inclusive evaluation</text>
+                <line x1="567" y1="106" x2="615" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="68" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="632" y="88" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">OUTCOME</text>
+                <text x="632" y="106" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Rollback prevented</text>
+                <text x="632" y="122" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Evidence grounded the decision in real</text>
+                <text x="632" y="136" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">accessibility need, not stakeholder perception</text>
+
+                <!-- ROW 2 -->
+                <rect x="40" y="174" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="58" y="194" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">02 · NO TRADEOFFS</text>
+                <text x="58" y="212" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Accessibility ≠ Usability Tradeoff</text>
+                <text x="58" y="228" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Spacing improved accessibility without</text>
+                <text x="58" y="242" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">negatively affecting usability for all users</text>
+
+                <line x1="342" y1="212" x2="390" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="188" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="208" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">ANOVA across</text>
+                <text x="479" y="224" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">participant groups</text>
+                <line x1="567" y1="212" x2="615" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="174" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="632" y="194" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">OUTCOME</text>
+                <text x="632" y="212" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Standard adopted across 230+ services</text>
+                <text x="632" y="228" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">No fragmentation; single evidence-based</text>
+                <text x="632" y="242" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">standard implemented at enterprise scale</text>
+
+                <!-- ROW 3 -->
+                <rect x="40" y="280" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="58" y="300" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">03 · PERCEPTION VS EVIDENCE</text>
+                <text x="58" y="318" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Perception Did Not Match Outcomes</text>
+                <text x="58" y="334" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Stakeholders perceived spacing as visually</text>
+                <text x="58" y="348" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">heavier — testing showed the opposite</text>
+
+                <line x1="342" y1="318" x2="390" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="294" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="314" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Controlled evaluation</text>
+                <text x="479" y="330" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ statistical analysis</text>
+                <line x1="567" y1="318" x2="615" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="280" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="632" y="300" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">OUTCOME</text>
+                <text x="632" y="318" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Methodology adopted org-wide</text>
+                <text x="632" y="334" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Research approach shared at accessibility</text>
+                <text x="632" y="348" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">forum; 150+ attendees, multiple teams adopted</text>
+
+                <!-- AGGREGATE IMPACT BAR -->
+                <rect x="40" y="392" width="880" height="100" rx="12" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.12)" stroke-width="1"/>
+                <text x="480" y="418" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="2">AGGREGATE IMPACT</text>
+
+                <rect x="80" y="430" width="220" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="190" y="449" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">230+</text>
+                <text x="190" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">services standardized</text>
+
+                <rect x="370" y="430" width="220" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="480" y="449" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">150+</text>
+                <text x="480" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">attendees · org-wide forum</text>
+
+                <rect x="660" y="430" width="220" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="770" y="449" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">0</text>
+                <text x="770" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">custom deviations after standardization</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- KEY INSIGHTS 3+3 -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-12">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Findings</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Key Insights</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">Three findings that together resolved the contested decision — each addressing a different dimension of the stakeholder debate.</p>
+        </div>
+
+        <!-- PRIMARY 3 -->
+        <p class="text-[10px] font-bold tracking-widest uppercase mb-5" style="color: var(--accent)">Primary findings — decision-driving</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-inclusive self-start">01 · Inclusive Research</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Increased Spacing Improves Readability for Diverse Users</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Participants with dyslexia and low vision reported that minimal spacing between text and link styling made characters harder to distinguish and increased reading effort. Increasing the separation improved recognition and enabled more efficient scanning.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Decision influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Prevented rollback; grounded the decision in real accessibility need</p>
+                </div>
+            </div>
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-quant self-start">02 · No Tradeoffs</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Accessibility Improvements Benefit All Users Without Tradeoffs</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">While performance differences for users without disabilities were minimal, increased spacing improved visual comfort and readability without negatively affecting usability. Accessibility and usability were not in tension — they were aligned.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Decision influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Enabled confident adoption of a single standard across 230+ services</p>
+                </div>
+            </div>
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-systems self-start">03 · Perception vs Evidence</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Visual Perception Concerns Did Not Align With Usability Outcomes</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Although some stakeholders perceived increased spacing as visually heavier, testing demonstrated that readability and comprehension improved without negative impact. The gap between perception and evidence was the core reason statistical rigor was needed to resolve the decision.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Decision influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Resolved stakeholder deadlock; research methodology adopted org-wide</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Outcomes</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Impact & Decisions Influenced</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">gavel</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Resolved a high-stakes accessibility decision through evidence</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Findings addressed stakeholder concerns and enabled a data-driven decision, preventing rollback and resolving conflicting perspectives on link styling.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">verified</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Established a scalable accessibility standard across 230+ services</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">The validated link styling standard was adopted across the design system, improving accessibility and ensuring consistency across a large ecosystem of products.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">block</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Prevented fragmentation and reduced need for custom deviations</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">By providing clear, evidence-based guidance, this work reduced the need for teams to create custom solutions, maintaining consistency across implementations.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">accessibility</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Improved accessibility for users with diverse needs</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">The updated standard improved readability for users with dyslexia and low vision while maintaining usability for the broader population.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">group</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Influenced accessibility practices beyond the immediate project</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">The research approach was shared at an org-wide accessibility forum attended by 150+ people. Multiple teams adopted both the standard and the methodology, extending impact beyond the original design system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFLECTION -->
+    <section class="max-w-7xl mx-auto px-8 mb-32 fade-up">
+        <div class="editorial-gradient rounded-[2rem] p-12 md:p-16 relative overflow-hidden">
+            <div class="relative z-10 max-w-2xl">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-6 text-[#001b3e]/60">Researcher Reflection</span>
+                <blockquote class="font-['Manrope'] font-bold text-2xl md:text-3xl text-[#001b3e] leading-snug mb-8">
+                    "Inclusive research and statistical rigor can resolve contested decisions while balancing accessibility, usability, and consistency at scale."
+                </blockquote>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed mb-4">
+                    By grounding the decision in evidence and diverse user perspectives, this project enabled a solution that improved readability, prevented fragmentation, and strengthened accessibility practices across teams.
+                </p>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed">
+                    The most important outcome was not just the standard itself — but demonstrating that when perception and evidence diverge, rigorous research is the mechanism that moves organizations toward better decisions for all users.
+                </p>
+            </div>
+            <div class="absolute top-1/2 right-8 -translate-y-1/2 opacity-5 hidden lg:block">
+                <span class="material-symbols-outlined text-[280px] text-[#001b3e]">accessibility</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEXT CASE STUDY NAV -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-12"/>
+        <div class="flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-[var(--text-dim)] hover:text-white transition-colors text-sm font-medium">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> All case studies
+            </a>
+            <a href="case-study-ai-design-systems.html" class="group flex items-center gap-3 text-right">
+                <div>
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Next case study</p>
+                    <p class="text-white font-semibold text-sm group-hover:text-[var(--accent)] transition-colors">Trust Signals, Interaction Patterns & Ecosystem Scale →</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-[#0d0e10] w-full py-16 px-8 border-t border-white/10">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-10 max-w-7xl mx-auto">
+        <div class="flex flex-col gap-2">
+            <div class="text-lg font-bold text-white font-['Manrope'] uppercase tracking-tighter">BHOOMIKA <span style="color: var(--accent)">| PHD UXR</span></div>
+            <p class="text-[#9c9da4] text-xs">Specializing in Human-AI Trust & Systemic Scale</p>
+        </div>
+        <div class="text-[#45474d] font-['Inter'] text-[0.7rem] font-medium tracking-wide uppercase">
+            © 2026 Bhoomika
+        </div>
+    </div>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

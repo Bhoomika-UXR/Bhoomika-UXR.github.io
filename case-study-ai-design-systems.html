@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>AI Interaction Patterns & Design System Strategy | Bhoomika | UX Research</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#0d0e10",
+                        "on-surface": "#e3e2e5",
+                        "primary-container": "#acc7fb",
+                        "primary": "#d6e2ff",
+                        "surface-container-high": "#292a2c",
+                        "outline": "#8e909a",
+                        "surface-container-low": "#1b1c1e",
+                        "on-surface-variant": "#c4c6d0",
+                        "outline-variant": "#43474f",
+                        "surface-container": "#1f2022",
+                        "surface": "#121315",
+                        "background": "#121315",
+                        "on-background": "#e3e2e5",
+                        "surface-container-highest": "#343537",
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --accent: #acc7fb;
+            --accent-dim: rgba(172, 199, 251, 0.12);
+            --accent-border: rgba(172, 199, 251, 0.2);
+            --surface: #121315;
+            --surface-high: #1f2022;
+            --surface-higher: #292a2c;
+            --text-primary: #e3e2e5;
+            --text-muted: #c4c6d0;
+            --text-dim: #8e909a;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--surface);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .editorial-gradient { background: linear-gradient(135deg, #acc7fb 0%, #e2e0f9 100%); }
+        .glass-panel { background: rgba(35, 38, 43, 0.6); backdrop-filter: blur(20px); }
+        .ghost-border { outline: 1px solid rgba(142, 144, 154, 0.1); }
+
+        .process-step { position: relative; }
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 44px;
+            bottom: -24px;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent-border), transparent);
+        }
+
+        .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(172,199,251,0.25); }
+            70% { box-shadow: 0 0 0 12px rgba(172,199,251,0); }
+            100% { box-shadow: 0 0 0 0 rgba(172,199,251,0); }
+        }
+        .metric-pulse { animation: pulse-ring 3s ease-out infinite; }
+
+        .tag-trust { background: rgba(226,224,249,0.12); color: #e2e0f9; border: 1px solid rgba(226,224,249,0.2); }
+        .tag-patterns { background: rgba(172,199,251,0.12); color: #acc7fb; border: 1px solid rgba(172,199,251,0.2); }
+        .tag-systems { background: rgba(198,196,220,0.12); color: #c6c4dc; border: 1px solid rgba(198,196,220,0.2); }
+        .tag-adoption { background: rgba(197,198,205,0.12); color: #c5c6cd; border: 1px solid rgba(197,198,205,0.12); }
+
+        .section-divider { border: none; border-top: 1px solid rgba(142,144,154,0.1); }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 bg-[#0d0e10]/60 backdrop-blur-[20px] border-b border-white/10">
+    <div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+        <a href="index.html" class="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm font-medium">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            Back to Portfolio
+        </a>
+        <div class="text-base font-extrabold tracking-tighter text-white font-['Manrope'] uppercase">
+            BHOOMIKA <span style="color: var(--accent)">| UXR</span>
+        </div>
+        <a href="mailto:bhoomika17@gmail.com" class="editorial-gradient text-[#001b3e] font-bold py-2.5 px-6 rounded-xl text-sm transition-transform active:scale-95">
+            Get in Touch
+        </a>
+    </div>
+</nav>
+
+<main class="pt-28">
+
+    <!-- HERO -->
+    <header class="max-w-7xl mx-auto px-8 pt-12 pb-20">
+        <div class="mb-6 flex flex-wrap items-center gap-3">
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-patterns">Foundational Research</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-systems">Design Systems</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-trust">AI Trust Patterns</span>
+        </div>
+
+        <h1 class="font-['Manrope'] font-extrabold text-[2.8rem] md:text-[4.5rem] leading-[1.0] tracking-[-0.03em] text-white mb-8 max-w-5xl">
+            Trust Signals, Interaction Patterns & Ecosystem Scale: <span style="color: var(--accent)">Foundational Research for an AI Design System</span>
+        </h1>
+
+        <p class="text-[var(--text-muted)] text-xl leading-relaxed max-w-3xl mb-12">
+            Led multi-method foundational research to understand how builder teams were designing AI-powered experiences across a large enterprise platform — and what the design system needed to do to support them at scale.
+        </p>
+
+        <!-- Metadata strip -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Role</p>
+                <p class="text-sm font-semibold text-white">UX Research Lead</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Scope</p>
+                <p class="text-sm font-semibold text-white">Foundational Research</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Audience</p>
+                <p class="text-sm font-semibold text-white">Builder teams · Design system leadership</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Methods</p>
+                <p class="text-sm font-semibold text-white">Stakeholder interviews · Workflow mapping · Landscape review</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- IMPACT METRICS -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="metric-pulse bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">400+</p>
+                <p class="font-semibold text-white text-lg mb-2">Discoverability Restored</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">The system feedback component launched to 400+ unique visits (~13/day) in its first month — directly informed by research findings on trust signaling and processing states.</p>
+            </div>
+            <div class="bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">100+</p>
+                <p class="font-semibold text-white text-lg mb-2">Guidance Uptake</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Recommendations to publish AI guidance more broadly drove 100+ unique visits per resource within the first month — measurable evidence of improved discoverability.</p>
+            </div>
+            <div class="bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">↗</p>
+                <p class="font-semibold text-white text-lg mb-2">AI System at Scale</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Post-research insight mapping with design system leadership directly resulted in prioritization of multiple guidance areas and components aligned to builder needs.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEXT -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Background</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Context & Problem Space</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">
+                    As AI-powered functionality expanded across a large enterprise platform, builder teams began implementing diverse interaction approaches with limited shared guidance. Without consistent patterns, teams were independently solving the same problems — creating fragmentation in how AI behavior was communicated to users.
+                </p>
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">
+                    Simultaneously, the design system needed to evolve to support emerging AI interaction models while enabling teams to contribute solutions back into the shared ecosystem. Without foundational research, design system investment risked being misaligned with real builder needs.
+                </p>
+                <div class="bg-[var(--surface-higher)] rounded-xl p-6 border-l-4 mt-6" style="border-color: var(--accent)">
+                    <p class="text-sm font-bold text-white mb-3">Fragmentation created risk across three dimensions:</p>
+                    <ul class="space-y-2 text-[var(--text-muted)] text-sm">
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> Consistency of AI interactions across products</li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> Clear communication of AI behavior and trust signals to users</li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> Reuse of patterns and components across teams — limiting ecosystem scalability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH APPROACH -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Process</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Research Approach</h2>
+                <p class="text-[var(--text-muted)] text-sm mt-4 leading-relaxed">Multi-method foundational research designed to surface both strategic priorities and ground-level builder workflows.</p>
+            </div>
+            <div class="md:col-span-8">
+
+                <!-- Phase 1 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">01</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Stakeholder Interviews</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-patterns font-semibold">Strategic alignment</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Interviews with design system leadership and cross-functional stakeholders to surface open questions, competing priorities, and where the design system was perceived to be falling short in supporting AI experiences.
+                        </p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Output</span>
+                            Defined research focus areas and surfaced gaps in existing design system strategy before builder interviews began
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">02</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Builder Team Interviews & Workflow Mapping</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-systems font-semibold">Qualitative inquiry</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            In-depth qualitative interviews with builder teams (designers, developers, PMs) to understand how they were implementing AI interactions in practice — including decision drivers, workarounds, and where design system guidance was or wasn't being applied.
+                        </p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                                <span class="text-white font-medium block mb-1">Focus areas</span>
+                                AI workflow decisions · Guidance discovery · Trust signaling approaches · Contribution barriers
+                            </div>
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                                <span class="text-white font-medium block mb-1">Method</span>
+                                Workflow and decision-driver mapping alongside interviews to surface real implementation patterns
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">03</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Design System Usage Review</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-trust font-semibold">Behavioral patterns</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Reviewed existing design system usage patterns to understand where guidance was being applied and where gaps were leading to duplicated effort across teams.
+                        </p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Output</span>
+                            Identified discoverability gaps and contribution pathway friction that were limiting ecosystem reuse
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 4 -->
+                <div class="process-step flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">04</div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Generative AI Landscape Review</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-adoption font-semibold">Strategic context</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Reviewed emerging generative AI interaction patterns across the industry to contextualize internal findings and identify where the platform's design system needed to evolve beyond conventional chat-based interaction models.
+                        </p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]">
+                            <span class="text-white font-medium block mb-1">Key finding</span>
+                            Teams were already exploring multimodal inputs, embedded prompts, and iterative generation flows — requiring more flexible and scalable interaction patterns
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INSIGHT TO IMPACT VISUAL -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-10">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Research Impact</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">From Insight to Decision</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">Each finding mapped directly to a design system investment or strategic decision.</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 overflow-hidden" style="background: var(--surface-high)">
+            <svg width="100%" viewBox="0 0 960 580" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing how three research insights mapped to three design system decisions">
+                <defs>
+                    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M2 1L8 5L2 9" fill="none" stroke="#acc7fb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </marker>
+                </defs>
+
+                <!-- Column headers -->
+                <text x="200" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">INSIGHT</text>
+                <text x="480" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#8e909a" letter-spacing="2">MECHANISM</text>
+                <text x="760" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">DECISION</text>
+                <line x1="40" y1="50" x2="920" y2="50" stroke="#43474f" stroke-width="0.5"/>
+
+                <!-- ROW 1: Guidance discoverability → Publish broadly -->
+                <rect x="40" y="68" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="58" y="88" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">01 · DISCOVERABILITY</text>
+                <text x="58" y="106" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Guidance Buried in Workflows</text>
+                <text x="58" y="122" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Teams applied guidance only when embedded</text>
+                <text x="58" y="136" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">in their workflow — not discovered separately</text>
+
+                <line x1="342" y1="106" x2="390" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="82" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="102" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Usage pattern review</text>
+                <text x="479" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ builder interviews</text>
+                <line x1="567" y1="106" x2="615" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="68" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="632" y="88" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">DESIGN SYSTEM DECISION</text>
+                <text x="632" y="106" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Broader guidance publishing</text>
+                <text x="632" y="122" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">AI guidance published more broadly;</text>
+                <text x="632" y="136" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">100+ unique visits/resource in month one</text>
+
+                <!-- ROW 2: Trust patterns → System feedback component -->
+                <rect x="40" y="174" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="58" y="194" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">02 · TRUST SIGNALING</text>
+                <text x="58" y="212" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">No Shared Patterns for AI Behavior</text>
+                <text x="58" y="228" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Teams needed patterns for processing states,</text>
+                <text x="58" y="242" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">prompt-to-output links, and cognitive load</text>
+
+                <line x1="342" y1="212" x2="390" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="188" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="208" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Thematic synthesis</text>
+                <text x="479" y="224" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ roadmap mapping</text>
+                <line x1="567" y1="212" x2="615" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="174" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="632" y="194" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">DESIGN SYSTEM DECISION</text>
+                <text x="632" y="212" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">System feedback component launched</text>
+                <text x="632" y="228" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">New reusable component for AI feedback states;</text>
+                <text x="632" y="242" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">400+ unique visits (~13/day) in month one</text>
+
+                <!-- ROW 3: Contribution barriers → Ecosystem efficiency -->
+                <rect x="40" y="280" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="58" y="300" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">03 · ECOSYSTEM</text>
+                <text x="58" y="318" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Contribution Friction Stalled Reuse</text>
+                <text x="58" y="334" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Perceived complexity in contribution processes</text>
+                <text x="58" y="348" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">led teams to duplicate effort rather than share</text>
+
+                <line x1="342" y1="318" x2="390" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="294" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="314" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Workflow mapping</text>
+                <text x="479" y="330" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ gap analysis</text>
+                <line x1="567" y1="318" x2="615" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="280" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="632" y="300" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">DESIGN SYSTEM DECISION</text>
+                <text x="632" y="318" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Contribution pathway improvements</text>
+                <text x="632" y="334" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Reduced duplication; teams enabled to share</text>
+                <text x="632" y="348" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">reusable components across the ecosystem</text>
+
+                <!-- AGGREGATE IMPACT BAR -->
+                <rect x="40" y="392" width="880" height="160" rx="12" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.12)" stroke-width="1"/>
+                <text x="480" y="420" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="2">AGGREGATE IMPACT</text>
+
+                <!-- stat pills row 1 -->
+                <rect x="80" y="432" width="200" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="180" y="451" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">400+</text>
+                <text x="180" y="467" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">visits · system feedback component</text>
+
+                <rect x="380" y="432" width="200" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="480" y="451" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">190+</text>
+                <text x="480" y="467" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">visits · feedback & state guidance</text>
+
+                <rect x="680" y="432" width="200" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="780" y="451" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">100+</text>
+                <text x="780" y="467" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">visits/resource · guidance publishing</text>
+
+                <!-- stat pills row 2 -->
+                <rect x="180" y="490" width="240" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="300" y="509" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">Gen AI Roadmap</text>
+                <text x="300" y="525" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">design system strategy shaped</text>
+
+                <rect x="540" y="490" width="240" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="660" y="509" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">Multi-method</text>
+                <text x="660" y="525" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">4-method foundational study</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- KEY INSIGHTS 3+3 -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-12">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Findings</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Key Insights</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">Three primary findings that directly shaped design system investment, and one supporting finding that deepened the strategic picture.</p>
+        </div>
+
+        <!-- PRIMARY 3 -->
+        <p class="text-[10px] font-bold tracking-widest uppercase mb-5" style="color: var(--accent)">Primary findings — design system-driving</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-patterns self-start">01 · Discoverability</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Guidance Discoverability Drives Adoption</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Teams were significantly more likely to apply design system guidance when it was embedded within their existing workflows rather than requiring a separate discovery step. Guidance that required separate discovery was less likely to be applied.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Decision influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Broader and more accessible publishing of AI guidance across the platform</p>
+                </div>
+            </div>
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-trust self-start">02 · Trust Patterns</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Clear Patterns Are Critical for Communicating AI Behavior</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Teams needed shared guidance on signaling AI involvement, communicating processing states, connecting prompts to outputs, and reducing cognitive load. Without these patterns, each team solved the same trust problem independently — and inconsistently.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Decision influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">System feedback component and AI interaction pattern library prioritized and launched</p>
+                </div>
+            </div>
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-systems self-start">03 · Ecosystem</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Contribution Barriers Limited Ecosystem Growth</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Teams were willing to contribute reusable components back to the design system — but perceived complexity in the contribution process reduced participation. The result was duplicated effort across teams building the same solutions in isolation.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Decision influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Contribution pathway improvements reducing duplication and improving system scalability</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECONDARY -->
+        <p class="text-[10px] font-bold tracking-widest uppercase mb-5 mt-12" style="color: var(--text-dim)">Additional finding — deepened the strategic picture</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="rounded-xl p-6 border flex flex-col" style="background: #1a1b1d; border-color: rgba(142,144,154,0.12);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full inline-block mb-4 self-start" style="background: rgba(197,198,205,0.08); color: #9c9da4; border: 1px solid rgba(197,198,205,0.12)">04 · Interaction Models</span>
+                <h3 class="font-['Manrope'] font-semibold text-base text-white mb-2 leading-snug">AI Workflows Extend Beyond Chat</h3>
+                <p class="text-[var(--text-dim)] text-sm leading-relaxed flex-grow">Builder teams were already exploring multimodal inputs, embedded prompts, and iterative generation flows — requiring more flexible and scalable interaction patterns beyond conventional chat-based models.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Outcomes</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Impact & Decisions Influenced</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">route</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Directly informed the Generative AI design system roadmap</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Led post-research mapping of insights to the Gen AI design system roadmap in collaboration with design system leadership — resulting in prioritization of multiple guidance areas and components aligned with real builder needs.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">visibility</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Expanded reach and visibility of AI guidance</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Recommendations to publish guidance more broadly drove 100+ unique visits per resource within the first month — measurable evidence of improved discoverability and cross-team adoption.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">widgets</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Influenced launch of key AI interaction patterns</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Research directly informed prioritization and delivery of new AI guidance and reusable interaction patterns — including the system feedback component (400+ visits, ~13/day) and feedback and state guidance (190+ visits, ~6/day) in their first months.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">hub</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Reduced duplication and improved ecosystem efficiency</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">By identifying gaps in contribution pathways, this work reduced the need for teams to build custom solutions independently — enabling more reuse and improving overall design system scalability across the platform.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">schema</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Enabled scalable support for emerging AI workflows</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Insights into multimodal and non-chat interactions led to prioritization of more flexible input patterns — reducing fragmentation and supporting more consistent AI implementation across teams.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFLECTION -->
+    <section class="max-w-7xl mx-auto px-8 mb-32 fade-up">
+        <div class="editorial-gradient rounded-[2rem] p-12 md:p-16 relative overflow-hidden">
+            <div class="relative z-10 max-w-2xl">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-6 text-[#001b3e]/60">Researcher Reflection</span>
+                <blockquote class="font-['Manrope'] font-bold text-2xl md:text-3xl text-[#001b3e] leading-snug mb-8">
+                    "Design systems succeed not only through patterns and documentation, but through clarity, trust, and shared ownership across the teams they serve."
+                </blockquote>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed mb-4">
+                    This work demonstrated how foundational research can guide design systems through emerging technological shifts — not just by surfacing what teams need, but by understanding why existing guidance wasn't reaching them.
+                </p>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed">
+                    By understanding builder workflows and contribution barriers, the research shaped both AI design guidance and how teams collaborated across the platform — reinforcing that ecosystem health is as much a research problem as a design one.
+                </p>
+            </div>
+            <div class="absolute top-1/2 right-8 -translate-y-1/2 opacity-5 hidden lg:block">
+                <span class="material-symbols-outlined text-[280px] text-[#001b3e]">hub</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEXT CASE STUDY NAV -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-12"/>
+        <div class="flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-[var(--text-dim)] hover:text-white transition-colors text-sm font-medium">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> All case studies
+            </a>
+            <a href="case-study-ai-interface-tool.html" class="group flex items-center gap-3 text-right">
+                <div>
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Next case study</p>
+                    <p class="text-white font-semibold text-sm group-hover:text-[var(--accent)] transition-colors">Trust, Learnability & Workflow Fit →</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-[#0d0e10] w-full py-16 px-8 border-t border-white/10">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-10 max-w-7xl mx-auto">
+        <div class="flex flex-col gap-2">
+            <div class="text-lg font-bold text-white font-['Manrope'] uppercase tracking-tighter">BHOOMIKA <span style="color: var(--accent)">| PHD UXR</span></div>
+            <p class="text-[#9c9da4] text-xs">Specializing in Human-AI Trust & Systemic Scale</p>
+        </div>
+        <div class="text-[#45474d] font-['Inter'] text-[0.7rem] font-medium tracking-wide uppercase">
+            © 2026 Bhoomika
+        </div>
+    </div>
+</footer>
+
+<script>
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

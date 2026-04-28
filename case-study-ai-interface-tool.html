@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Trust, Learnability & Workflow Fit | Bhoomika | UX Research</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-lowest": "#0d0e10",
+                        "secondary-container": "#45474d",
+                        "on-surface": "#e3e2e5",
+                        "primary-container": "#acc7fb",
+                        "primary": "#d6e2ff",
+                        "surface-bright": "#38393b",
+                        "surface-container-high": "#292a2c",
+                        "outline": "#8e909a",
+                        "surface-container-low": "#1b1c1e",
+                        "on-surface-variant": "#c4c6d0",
+                        "outline-variant": "#43474f",
+                        "surface-container": "#1f2022",
+                        "surface": "#121315",
+                        "background": "#121315",
+                        "on-background": "#e3e2e5",
+                        "surface-container-highest": "#343537",
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --accent: #acc7fb;
+            --accent-dim: rgba(172, 199, 251, 0.12);
+            --accent-border: rgba(172, 199, 251, 0.2);
+            --surface: #121315;
+            --surface-high: #1f2022;
+            --surface-higher: #292a2c;
+            --text-primary: #e3e2e5;
+            --text-muted: #c4c6d0;
+            --text-dim: #8e909a;
+        }
+        * { box-sizing: border-box; }
+        body {
+            background-color: var(--surface);
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .editorial-gradient { background: linear-gradient(135deg, #acc7fb 0%, #e2e0f9 100%); }
+        .glass-panel { background: rgba(35, 38, 43, 0.6); backdrop-filter: blur(20px); }
+        .ghost-border { outline: 1px solid rgba(142, 144, 154, 0.1); }
+
+        /* Process timeline */
+        .process-step { position: relative; }
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 44px;
+            bottom: -24px;
+            width: 1px;
+            background: linear-gradient(to bottom, var(--accent-border), transparent);
+        }
+
+        /* Fade-in on scroll */
+        .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* Metric pulse */
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(172,199,251,0.25); }
+            70% { box-shadow: 0 0 0 12px rgba(172,199,251,0); }
+            100% { box-shadow: 0 0 0 0 rgba(172,199,251,0); }
+        }
+        .metric-pulse { animation: pulse-ring 3s ease-out infinite; }
+
+        /* Insight tag colors */
+        .tag-learnability { background: rgba(172,199,251,0.12); color: #acc7fb; border: 1px solid rgba(172,199,251,0.2); }
+        .tag-trust { background: rgba(226,224,249,0.12); color: #e2e0f9; border: 1px solid rgba(226,224,249,0.2); }
+        .tag-workflow { background: rgba(198,196,220,0.12); color: #c6c4dc; border: 1px solid rgba(198,196,220,0.2); }
+        .tag-adoption { background: rgba(197,198,205,0.12); color: #c5c6cd; border: 1px solid rgba(197,198,205,0.2); }
+
+        /* Sticky nav */
+        nav { transition: background 0.3s ease; }
+
+        /* Section divider */
+        .section-divider { border: none; border-top: 1px solid rgba(142,144,154,0.1); }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="fixed top-0 w-full z-50 bg-[#0d0e10]/60 backdrop-blur-[20px] border-b border-white/10">
+    <div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+        <a href="index.html" class="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm font-medium">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            Back to Portfolio
+        </a>
+        <div class="text-base font-extrabold tracking-tighter text-white font-['Manrope'] uppercase">
+            BHOOMIKA <span style="color: var(--accent)">| UXR</span>
+        </div>
+        <a href="mailto:bhoomika17@gmail.com" class="editorial-gradient text-[#001b3e] font-bold py-2.5 px-6 rounded-xl text-sm transition-transform active:scale-95">
+            Get in Touch
+        </a>
+    </div>
+</nav>
+
+<main class="pt-28">
+
+    <!-- HERO -->
+    <header class="max-w-7xl mx-auto px-8 pt-12 pb-20">
+        <div class="mb-6 flex flex-wrap items-center gap-3">
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-learnability">Longitudinal Research</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-workflow">0→1 Strategy</span>
+            <span class="text-xs font-bold tracking-widest uppercase px-3 py-1.5 rounded-full tag-adoption">AI Adoption</span>
+        </div>
+
+        <h1 class="font-['Manrope'] font-extrabold text-[2.8rem] md:text-[4.5rem] leading-[1.0] tracking-[-0.03em] text-white mb-8 max-w-5xl">
+            Trust, Learnability & Workflow Fit: <span style="color: var(--accent)">Foundational Research for an AI-Assisted Builder Tool</span>
+        </h1>
+
+        <p class="text-[var(--text-muted)] text-xl leading-relaxed max-w-3xl mb-12">
+            Led foundational and longitudinal research to evaluate adoption readiness for a prompt-driven AI tool designed to accelerate builder workflows at a large enterprise cloud platform.
+        </p>
+
+        <!-- Quick-scan metadata strip -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 rounded-2xl overflow-hidden border border-white/5">
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Role</p>
+                <p class="text-sm font-semibold text-white">Lead UX Researcher</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Scope</p>
+                <p class="text-sm font-semibold text-white">Multi-phase, 0→1</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Participants</p>
+                <p class="text-sm font-semibold text-white">60 total (12 + 48)</p>
+            </div>
+            <div class="bg-[var(--surface-high)] px-6 py-5">
+                <p class="text-[10px] font-bold tracking-widest uppercase mb-2" style="color: var(--accent)">Methods</p>
+                <p class="text-sm font-semibold text-white">Concept validation · Diary study · Interviews</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- IMPACT METRICS -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="metric-pulse bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">480+</p>
+                <p class="font-semibold text-white text-lg mb-2">Engineering Hours Reclaimed</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Early identification of misaligned feature directions prevented unnecessary development investment before broader rollout.</p>
+            </div>
+            <div class="bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">↗</p>
+                <p class="font-semibold text-white text-lg mb-2">Strategic MVP Pivot</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Findings shifted roadmap from prompt-from-scratch generation toward visual starting points and rapid iteration — better matching real workflows.</p>
+            </div>
+            <div class="bg-[var(--surface-high)] rounded-2xl p-8 border border-white/5 ghost-border">
+                <p class="font-['Manrope'] font-extrabold text-5xl mb-3" style="color: var(--accent)">5</p>
+                <p class="font-semibold text-white text-lg mb-2">Roadmap Decisions Influenced</p>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed">Paused code export, prioritized visual iteration, triggered developer research, elevated session continuity, and improved onboarding — each traceable directly to research findings.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTEXT -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Background</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Context & Problem Space</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">
+                    Builder teams across a large enterprise cloud platform reported significant friction with repetitive interface construction tasks. Rapid advances in generative AI prompted leadership to explore a prompt-driven tool capable of generating design-system-aligned interfaces from natural language input.
+                </p>
+                <p class="text-[var(--text-muted)] text-lg leading-relaxed">
+                    As a 0→1 initiative, the team faced high uncertainty before committing to build. Without early validation, there was a real risk of investing in technically impressive capabilities that would fail adoption.
+                </p>
+                <div class="bg-[var(--surface-higher)] rounded-xl p-6 border-l-4 mt-6" style="border-color: var(--accent)">
+                    <p class="text-sm font-bold text-white mb-3">Key uncertainties going in:</p>
+                    <ul class="space-y-2 text-[var(--text-muted)] text-sm">
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> Would builders trust AI-generated interfaces?</li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> How would the tool fit real, messy workflows?</li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> Did prompt-based generation match existing mental models?</li>
+                        <li class="flex gap-2"><span style="color: var(--accent)">—</span> What level of transparency and control would users expect?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESEARCH APPROACH / PROCESS -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Process</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Research Approach</h2>
+                <p class="text-[var(--text-muted)] text-sm mt-4 leading-relaxed">A multi-phase study designed to capture both early expectations and real-world longitudinal behavior.</p>
+            </div>
+            <div class="md:col-span-8">
+
+                <!-- Phase 1 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">01</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Concept Validation</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-learnability font-semibold">12 participants</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Semi-structured interviews with 6 designers and 6 developers to evaluate first impressions, workflow fit, mental model alignment, and trust expectations before any prototype was built.
+                        </p>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]"><span class="text-white font-medium block mb-1">Focus areas</span>First impressions · Workflow fit · Mental models · Trust signals</div>
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-xs text-[var(--text-muted)]"><span class="text-white font-medium block mb-1">Output</span>Insights shaped the interactive prototype for Phase 2 evaluation</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="process-step flex gap-6 mb-10">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">02</div>
+                    <div class="pb-10">
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Longitudinal Early-Access Evaluation</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-workflow font-semibold">48 builders · 4 cohorts</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Four staggered cohorts of 12 builders (designers, developers, PMs) each participated for 2 weeks. Cohorts were staggered to manage system load and capture evolving experience patterns as the product iterated live.
+                        </p>
+                        <div class="space-y-3">
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3">
+                                <p class="text-white font-medium text-sm mb-1">Week 1 — Daily Workflow Diaries</p>
+                                <p class="text-[var(--text-muted)] text-xs leading-relaxed">Participants documented real-world use: tasks attempted, prompts used, friction encountered, workarounds invented, and confidence levels. Diary prompts were varied to probe emerging themes and reduce fatigue.</p>
+                            </div>
+                            <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3">
+                                <p class="text-white font-medium text-sm mb-1">Week 2 — Deep-Dive Interviews</p>
+                                <p class="text-[var(--text-muted)] text-xs leading-relaxed">12 follow-up interviews (cross-role) to explore workflow integration challenges, mental models, trust formation, and adoption barriers in depth.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="process-step flex gap-6">
+                    <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold font-['Manrope']" style="background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border)">03</div>
+                    <div>
+                        <div class="flex flex-wrap items-center gap-3 mb-3">
+                            <h3 class="font-['Manrope'] font-bold text-xl text-white">Continuous Insight Delivery</h3>
+                            <span class="text-xs px-2.5 py-1 rounded-full tag-adoption font-semibold">Agile cadence</span>
+                        </div>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed mb-4">
+                            Rather than a single end-of-study readout, findings were shared continuously as they emerged. Designers, engineers, and leadership reviewed insights together during the evaluation period — enabling improvements to ship while participants were still active.
+                        </p>
+                        <div class="bg-[var(--surface-higher)] rounded-lg px-4 py-3 text-sm text-[var(--text-muted)]">
+                            <span class="text-white font-medium">Key effect:</span> Participants observed their feedback reflected in the evolving product. This responsiveness increased trust in the tool itself and motivated continued engagement — a finding in its own right.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INSIGHT TO IMPACT VISUAL -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-10">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Research Impact</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">From Insight to Decision</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">Each finding mapped directly to a product or roadmap decision. This is the chain from observation to outcome.</p>
+        </div>
+
+        <div class="rounded-2xl border border-white/5 overflow-hidden" style="background: var(--surface-high)">
+            <svg width="100%" viewBox="0 0 960 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram showing how three research insights mapped to three product decisions">
+                <defs>
+                    <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M2 1L8 5L2 9" fill="none" stroke="#acc7fb" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </marker>
+                    <marker id="arr-dim" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+                        <path d="M2 1L8 5L2 9" fill="none" stroke="#43474f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </marker>
+                </defs>
+
+                <!-- Column headers -->
+                <text x="200" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">INSIGHT</text>
+                <text x="480" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#8e909a" letter-spacing="2">MECHANISM</text>
+                <text x="760" y="38" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" font-weight="700" fill="#acc7fb" letter-spacing="2">DECISION</text>
+
+                <!-- Divider under headers -->
+                <line x1="40" y1="50" x2="920" y2="50" stroke="#43474f" stroke-width="0.5"/>
+
+                <!-- ── ROW 1: Prompt Fatigue → Onboarding ── -->
+                <!-- Insight box -->
+                <rect x="40" y="68" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="58" y="88" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">01 · LEARNABILITY</text>
+                <text x="58" y="106" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Prompt Fatigue</text>
+                <text x="58" y="122" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Users couldn't gauge prompt specificity</text>
+                <text x="58" y="136" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">or judge output quality without scaffolding</text>
+
+                <!-- Arrow + mechanism -->
+                <line x1="342" y1="106" x2="390" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="82" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="102" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Prompt log analysis</text>
+                <text x="479" y="118" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ diary synthesis</text>
+                <line x1="567" y1="106" x2="615" y2="106" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <!-- Decision box -->
+                <rect x="618" y="68" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="68" width="4" height="76" rx="2" fill="#acc7fb"/>
+                <text x="632" y="88" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="1.5">ROADMAP DECISION</text>
+                <text x="632" y="106" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Workflow-grounded onboarding</text>
+                <text x="632" y="122" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Prompt examples built from real diary entries;</text>
+                <text x="632" y="136" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">inline guidance replaced external docs</text>
+
+                <!-- ── ROW 2: Trust/Opacity → Transparency ── -->
+                <rect x="40" y="174" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="58" y="194" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">02 · TRUST</text>
+                <text x="58" y="212" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Opacity Broke Iteration</text>
+                <text x="58" y="228" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Unexplained errors & silent confirmations</text>
+                <text x="58" y="242" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">made outputs feel unpredictable</text>
+
+                <line x1="342" y1="212" x2="390" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="188" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="208" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Interview synthesis</text>
+                <text x="479" y="224" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ error pattern coding</text>
+                <line x1="567" y1="212" x2="615" y2="212" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="174" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="174" width="4" height="76" rx="2" fill="#e2e0f9"/>
+                <text x="632" y="194" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#e2e0f9" letter-spacing="1.5">ROADMAP DECISION</text>
+                <text x="632" y="212" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Inline transparency layer</text>
+                <text x="632" y="228" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">System now surfaces unsupported requests</text>
+                <text x="632" y="242" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">and explains actions in plain language</text>
+
+                <!-- ── ROW 3: Workflow Fit → Pivot ── -->
+                <rect x="40" y="280" width="300" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="40" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="58" y="300" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">03 · INTEGRATION</text>
+                <text x="58" y="318" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">Workflow Fit Over Raw Output</text>
+                <text x="58" y="334" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Implementation-ready code required too much</text>
+                <text x="58" y="348" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">adaptation; context-switching eroded value</text>
+
+                <line x1="342" y1="318" x2="390" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+                <rect x="393" y="294" width="172" height="48" rx="8" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="479" y="314" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">Thematic synthesis</text>
+                <text x="479" y="330" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">+ stakeholder readout</text>
+                <line x1="567" y1="318" x2="615" y2="318" stroke="#acc7fb" stroke-width="1" marker-end="url(#arr)"/>
+
+                <rect x="618" y="280" width="302" height="76" rx="10" fill="#1f2022" stroke="rgba(172,199,251,0.18)" stroke-width="1"/>
+                <rect x="916" y="280" width="4" height="76" rx="2" fill="#c6c4dc"/>
+                <text x="632" y="300" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#c6c4dc" letter-spacing="1.5">ROADMAP DECISION</text>
+                <text x="632" y="318" font-family="Manrope, sans-serif" font-size="13" font-weight="700" fill="#e3e2e5">MVP pivot to visual iteration</text>
+                <text x="632" y="334" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">Paused code export; prioritized image upload</text>
+                <text x="632" y="348" font-family="Inter, sans-serif" font-size="11" fill="#c4c6d0">and rapid refinement workflows</text>
+
+                <!-- ── IMPACT SUMMARY BAR ── -->
+                <rect x="40" y="390" width="880" height="100" rx="12" fill="rgba(172,199,251,0.06)" stroke="rgba(172,199,251,0.12)" stroke-width="1"/>
+                <text x="480" y="418" text-anchor="middle" font-family="Inter, sans-serif" font-size="9" font-weight="700" fill="#acc7fb" letter-spacing="2">AGGREGATE IMPACT</text>
+
+                <!-- 3 stat pills -->
+                <rect x="80" y="430" width="220" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="190" y="449" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">480+</text>
+                <text x="190" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">engineering hours reclaimed</text>
+
+                <rect x="370" y="430" width="220" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="480" y="449" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">3 → 1</text>
+                <text x="480" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">insights drove a single MVP pivot</text>
+
+                <rect x="660" y="430" width="220" height="44" rx="8" fill="rgba(172,199,251,0.08)" stroke="rgba(172,199,251,0.1)" stroke-width="0.5"/>
+                <text x="770" y="449" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#acc7fb">Dir–VP</text>
+                <text x="770" y="465" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="#8e909a">leadership audience for findings</text>
+            </svg>
+        </div>
+    </section>
+
+    <!-- KEY INSIGHTS – 3+3 hierarchy -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="mb-12">
+            <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Findings</span>
+            <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Key Insights</h2>
+            <p class="text-[var(--text-muted)] text-sm mt-3 max-w-xl leading-relaxed">Three primary findings that directly shaped roadmap decisions, and three supporting findings that deepened the picture.</p>
+        </div>
+
+        <!-- PRIMARY 3 -->
+        <p class="text-[10px] font-bold tracking-widest uppercase mb-5" style="color: var(--accent)">Primary findings — roadmap-driving</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-learnability self-start">01 · Learnability</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Prompt Fatigue Slowed Effective Use</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Users were unsure how specific prompts needed to be, what the system inferred versus required, and how to judge output quality. Without scaffolding, users had to invent a usage strategy before they could even evaluate the tool's usefulness.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Decision influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Workflow-grounded onboarding & inline prompt guidance</p>
+                </div>
+            </div>
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-trust self-start">02 · Trust</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Opacity Broke Trust and Discouraged Iteration</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Trust eroded when outputs appeared incorrect without explanation, when the system confirmed completion without describing its actions, and when unsupported requests weren't surfaced clearly. Opaque behavior made results feel unpredictable — discouraging the iteration that would have built fluency.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Decision influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">Inline transparency layer; system explains its actions</p>
+                </div>
+            </div>
+
+            <div class="rounded-2xl p-7 border flex flex-col" style="background: var(--surface-high); border-color: rgba(172,199,251,0.2);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full inline-block mb-5 tag-workflow self-start">03 · Integration</span>
+                <h3 class="font-['Manrope'] font-bold text-lg text-white mb-3 leading-snug">Workflow Fit Determined Perceived Value</h3>
+                <p class="text-[var(--text-muted)] text-sm leading-relaxed flex-grow">Implementation-ready outputs were less useful than expected because results required adaptation to existing team frameworks and project architectures. Builders expected the tool to meet them inside their environments — not introduce additional context switching.</p>
+                <div class="mt-5 pt-5 border-t border-white/5">
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Decision influenced</p>
+                    <p class="text-[var(--text-muted)] text-xs">MVP pivot to visual iteration; paused code export</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECONDARY 3 -->
+        <p class="text-[10px] font-bold tracking-widest uppercase mb-5 mt-12" style="color: var(--text-dim)">Additional findings — deepened the picture</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+            <div class="rounded-xl p-6 border flex flex-col" style="background: #1a1b1d; border-color: rgba(142,144,154,0.12);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full inline-block mb-4 self-start" style="background: rgba(197,198,205,0.08); color: #9c9da4; border: 1px solid rgba(197,198,205,0.12)">04 · Mental Models</span>
+                <h3 class="font-['Manrope'] font-semibold text-base text-white mb-2 leading-snug">Visual Iteration Beat Prompt-from-Scratch</h3>
+                <p class="text-[var(--text-dim)] text-sm leading-relaxed flex-grow">Participants preferred uploading existing designs and iterating on visual starting points. Generating from a blank prompt felt slower than tools they already knew.</p>
+            </div>
+
+            <div class="rounded-xl p-6 border flex flex-col" style="background: #1a1b1d; border-color: rgba(142,144,154,0.12);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full inline-block mb-4 self-start" style="background: rgba(197,198,205,0.08); color: #9c9da4; border: 1px solid rgba(197,198,205,0.12)">05 · Continuity</span>
+                <h3 class="font-['Manrope'] font-semibold text-base text-white mb-2 leading-snug">Session Memory Shaped Motivation</h3>
+                <p class="text-[var(--text-dim)] text-sm leading-relaxed flex-grow">When progress was lost after closing sessions, motivation dropped and rework burden increased — directly undermining the tool's core productivity promise.</p>
+            </div>
+
+            <div class="rounded-xl p-6 border flex flex-col" style="background: #1a1b1d; border-color: rgba(142,144,154,0.12);">
+                <span class="text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-full inline-block mb-4 self-start" style="background: rgba(197,198,205,0.08); color: #9c9da4; border: 1px solid rgba(197,198,205,0.12)">06 · Cognitive Load</span>
+                <h3 class="font-['Manrope'] font-semibold text-base text-white mb-2 leading-snug">Hidden Limitations Slowed Proficiency</h3>
+                <p class="text-[var(--text-dim)] text-sm leading-relaxed flex-grow">Capabilities documented externally forced users to leave their workflow to understand what the tool supported. Trial-and-error discovery increased cognitive load across all cohorts.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-16"/>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-4">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-4" style="color: var(--accent)">Outcomes</span>
+                <h2 class="font-['Manrope'] font-extrabold text-3xl text-white tracking-tight">Impact & Decisions Influenced</h2>
+            </div>
+            <div class="md:col-span-8 space-y-5">
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">route</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Roadmap pivot toward workflow fit</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Paused emphasis on direct implementation-ready code due to integration friction. Prioritized visual starting points and rapid iteration capabilities that matched observed builder behavior.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">search</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Triggered deeper developer workflow research</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Integration findings prompted targeted follow-up research into environment compatibility. Insights contributed to infrastructure enabling builders to access capabilities within their existing environments.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">tune</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Elevated usability foundations</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Prioritized session continuity and improved workflow support — features that reduced rework burden and supported sustained use rather than one-off exploration.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">school</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Improved onboarding and inline guidance</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Prompt analysis directly informed workflow-grounded examples and getting-started guidance. Inline transparency improvements reduced trial-and-error learning and context switching.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="w-8 h-8 rounded-full flex-shrink-0 flex items-center justify-center mt-0.5" style="background: var(--accent-dim)">
+                        <span class="material-symbols-outlined text-[16px]" style="color: var(--accent)">verified</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white mb-1">Strengthened trust through rapid feedback loops</p>
+                        <p class="text-[var(--text-muted)] text-sm leading-relaxed">Continuous insight delivery meant improvements shipped during the evaluation period. Participants who saw their feedback reflected in the evolving product showed measurably higher trust and deeper engagement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- REFLECTION -->
+    <section class="max-w-7xl mx-auto px-8 mb-32 fade-up">
+        <div class="editorial-gradient rounded-[2rem] p-12 md:p-16 relative overflow-hidden">
+            <div class="relative z-10 max-w-2xl">
+                <span class="text-[10px] font-bold tracking-widest uppercase block mb-6 text-[#001b3e]/60">Researcher Reflection</span>
+                <blockquote class="font-['Manrope'] font-bold text-2xl md:text-3xl text-[#001b3e] leading-snug mb-8">
+                    "Adoption of AI-powered tools depends less on technical capability and more on mental model alignment, transparency, and workflow fit."
+                </blockquote>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed mb-4">
+                    Builders needed to understand how the system worked, what it could and could not do, and how it integrated into real workflows — before they could trust and rely on it.
+                </p>
+                <p class="text-[#001b3e]/70 text-base leading-relaxed">
+                    This project also reinforced the value of rapid research feedback loops. When participants saw their input reflected in improvements, trust increased and engagement deepened. Productivity tools succeed when they integrate into existing ecosystems — not when they ask users to adapt their workflows.
+                </p>
+            </div>
+            <div class="absolute top-1/2 right-8 -translate-y-1/2 opacity-5 hidden lg:block">
+                <span class="material-symbols-outlined text-[280px] text-[#001b3e]">hub</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEXT CASE STUDY NAV -->
+    <section class="max-w-7xl mx-auto px-8 mb-24 fade-up">
+        <hr class="section-divider mb-12"/>
+        <div class="flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2 text-[var(--text-dim)] hover:text-white transition-colors text-sm font-medium">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span> All case studies
+            </a>
+            <a href="CaseStudy3.html" class="group flex items-center gap-3 text-right">
+                <div>
+                    <p class="text-[10px] font-bold tracking-widest uppercase mb-1" style="color: var(--accent)">Next case study</p>
+                    <p class="text-white font-semibold text-sm group-hover:text-[var(--accent)] transition-colors">Defining Scalable AI Interaction Patterns →</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<footer class="bg-[#0d0e10] w-full py-16 px-8 border-t border-white/10">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-10 max-w-7xl mx-auto">
+        <div class="flex flex-col gap-2">
+            <div class="text-lg font-bold text-white font-['Manrope'] uppercase tracking-tighter">BHOOMIKA <span style="color: var(--accent)">| PHD UXR</span></div>
+            <p class="text-[#9c9da4] text-xs">Specializing in Human-AI Trust & Systemic Scale</p>
+        </div>
+        <div class="text-[#45474d] font-['Inter'] text-[0.7rem] font-medium tracking-wide uppercase">
+            © 2026 Bhoomika
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Fade-up on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
